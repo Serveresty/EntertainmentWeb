@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,16 +16,23 @@
       <div class="form-container sign-up-container">
         <form id = "reg" action="/main-sign-up" method="post">
           <h1>Sign Up</h1>
-          <div class="social-container">
+          <!-- <div class="social-container">
             <a href="#" class="social"><i class="fab fa-instagram"></i></a>
             <a href="#" class="social"><i class="fab fa-google"></i></a>
             <a href="#" class="social"><i class="fab fa-tiktok"></i></a>
-          </div>
+          </div>-->
+          {{if .username}}
+                   <p><b>{{.username}}</b>, you're already logged in! <a href="/logout">Logout!</a></p>
+          {{else}}
           <span>or use your email for registration</span>
           <input name = "username" type="text" placeholder="Name" />
           <input name = "email" type="email" placeholder="Email" />
           <input name = "password" type="password" placeholder="Password" />
-          <button type="submit">Sign Up</button>
+          <input name = "confirm_password" type="password" placeholder="Confirm Password" />
+          {{if .LoginError}}<p style="color:red">Pass not equal Conf Pass</p>{{end}}
+          {{if .EmailUsernameError}}<p style="color:red">This Email or Username already registered</p>{{end}}
+          <button name="register" type="submit">Sign Up</button>
+          {{end}}
         </form>
       </div>
       <div class="form-container sign-in-container">

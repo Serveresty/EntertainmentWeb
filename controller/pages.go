@@ -58,8 +58,8 @@ func SignPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	}
 
 	var files = []string{
-		"./static/html/main_sign.html",
+		"./static/html/main_sign.tmpl",
 	}
 	var tpl = template.Must(template.ParseFiles(files...))
-	tpl.Execute(rw, nil)
+	tpl.Execute(rw, conditionsMap)
 }
