@@ -1,0 +1,41 @@
+{{define "basic"}}
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <title>{{template "title" .}}</title>
+        <link rel="stylesheet" href="/static/css/style.css"> 
+        <script src="../js/main.js"></script>
+    </head>
+    <body>
+        <div id="header">
+            <table class="text">
+                <tr>
+                 <td align="left"><a class="logo" href="/">My site's template</a></td>
+                 <td align="center">
+                  <a class="buttonNavigation" href="/newpage">Go to: New second page</a>
+                  <a class="buttonNavigation" href="/third-page">Go to: New third page</a>
+                  <a class="buttonNavigation" href="#">Go to: New forth page</a>
+                 </td>
+                 {{template "sign-btn" .}}
+                </tr>
+            </table>
+        </div>
+        <div style="clear: both;"></div>
+        <div id="main">
+            <div id="left-bar">
+                {{template "left-bar" .}}
+            </div>
+            <div id="content">
+                {{template "content" .}}
+            </div>
+            <div id="right-bar">
+                {{template "right-bar" .}}
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+        <div id="footer">
+            <p> &copy; All right reserved by SingleKnight group.
+        </div>
+    </body>
+</html>
+{{end}}

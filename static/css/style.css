@@ -1,0 +1,108 @@
+body {
+    background-image: url(/static/pictures/dark.gif);
+    background-attachment: fixed;
+}
+
+#header {
+    height: 50px;
+    width: 1390px; 
+    background: #900000; 
+    height: 50px; 
+    margin-right: auto; 
+    margin-left: auto; 
+    padding: 10px; 
+}
+
+.logo {
+    -webkit-text-stroke: 1px white;
+    font-family: fantasy;
+    color:rgb(64,199,129);
+    font-size:35px;
+    text-decoration: none;
+}
+
+#main {
+    width: 1415px; 
+    margin-right: auto; 
+    margin-left: auto;
+    margin-top: 5px;
+}
+
+#left-bar {
+    height: 592px;
+    width: 236px; 
+    float: left; 
+    color: white; 
+    background: #008080; 
+    padding: 10px; 
+    margin-right: 5px;
+}
+
+#right-bar {
+    height: 592px;
+    width: 236px; 
+    float: right; 
+    color: white; 
+    background: #008080; 
+    padding: 10px; 
+    margin-right: 5px;
+}
+
+#content {
+    height: 592px;
+    width: 868px; 
+    float: left; 
+    padding: 10px; 
+    background: #e0e0e0; 
+}
+
+#footer {
+    text-decoration:underline;
+    text-align:right;
+    height: 50px;
+    width:1390px;
+	padding: 10px; 
+	background:#444;
+	color:#fff;
+	margin-right: auto; 
+    margin-left: auto; 
+    margin-top: 5px;
+}
+
+.text {
+    width:  100%;
+    border-spacing: 0;
+}
+
+.buttonNavigation {
+    font-weight: 400;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    background: rgb(149, 79, 240);
+    box-shadow: 0 -3px rgb(121, 34, 235) inset;
+    transition: 0.2s;
+}
+.buttonNavigation:hover { background: rgb(121, 34, 235); }
+.buttonNavigation:active {
+    background: rgb(78, 4, 175);
+    box-shadow: 0 3px rgb(78, 4, 175) inset;
+}
+
+a.buttonLog {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    background: rgb(64,199,129);
+    box-shadow: 0 -3px rgb(53,167,110) inset;
+    transition: 0.2s;
+  } 
+a.buttonLog:hover { background: rgb(53, 167, 110); }
+a.buttonLog:active {
+background: rgb(33,147,90);
+box-shadow: 0 3px rgb(33,147,90) inset;
+}
+div { border-radius: 10px; }
