@@ -102,45 +102,53 @@ func (s *Complete) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 func (s *Complete) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	conditionsMap = map[string]any{}
 
-	session, _ := loggedUserSession.Get(r, "authenticated-user-session")
-
-	if session != nil {
+	if session, _ := loggedUserSession.Get(r, "authenticated-user-session"); session != nil {
 		conditionsMap["username"] = session.Values["username"]
-	}
+	} else {
+		email := r.FormValue("username")
+		password := r.FormValue("password")
 
-	email := r.FormValue("username")
-	password := r.FormValue("password")
+		conditionsMap["AccessError"] = false
+		conditionsMap["WrongPassword"] = false
 
-	conditionsMap["AccessError"] = false
-	conditionsMap["WrongPassword"] = false
-
-	row := s.Data.QueryRow(`SELECT password FROM users_account WHERE email = ?`, email)
-	if row.Err() != nil {
-		rw.Write([]byte("first"))
-		rw.Write([]byte(row.Err().Error()))
-		return
-	}
-	var result string
-	if err := row.Scan(&result); err != nil {
-		if err == sql.ErrNoRows {
-			conditionsMap["AccessError"] = true
-			http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
+		row := s.Data.QueryRow(`SELECT password FROM users_account WHERE email = ?`, email)
+		if row.Err() != nil {
+			rw.Write([]byte("first"))
+			rw.Write([]byte(row.Err().Error()))
 			return
 		}
-		rw.Write([]byte(err.Error()))
-		return
-	}
-
-	if err := bcrypt.CompareHashAndPassword([]byte(result), []byte(password)); err != nil {
-		if err == bcrypt.ErrMismatchedHashAndPassword {
-			conditionsMap["WrongPassword"] = true
-			http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
+		var result string
+		if err := row.Scan(&result); err != nil {
+			if err == sql.ErrNoRows {
+				conditionsMap["AccessError"] = true
+				http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
+				return
+			}
+			rw.Write([]byte(err.Error()))
 			return
 		}
-		rw.Write([]byte(err.Error()))
-		return
+
+		if err := bcrypt.CompareHashAndPassword([]byte(result), []byte(password)); err != nil {
+			if err == bcrypt.ErrMismatchedHashAndPassword {
+				conditionsMap["WrongPassword"] = true
+				http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
+				return
+			}
+			rw.Write([]byte(err.Error()))
+			return
+		}
+
+		conditionsMap["LoginError"] = false
+		conditionsMap["username"] = email
+
+		session, _ := loggedUserSession.New(r, "authenticated-user-session")
+		session.Values["username"] = email
+		err := session.Save(r, rw)
+		if err != nil {
+			rw.Write([]byte("GWWWW"))
+		}
+		http.Redirect(rw, r, "/", http.StatusFound)
 	}
-	http.Redirect(rw, r, "/", http.StatusFound)
 }
 
 func HashPassword(password string) (string, error) {
