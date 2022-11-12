@@ -15,19 +15,12 @@ func HomePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		http.NotFound(rw, r)
 		return
 	}
-	if flag == false {
-		files = []string{
-			"./static/html/home.page.tmpl",
-			"./static/html/basic.layout.tmpl",
-		}
-	} else {
-		files = []string{
-			"./static/html/home.page.signed.tmpl",
-			"./static/html/basic.layout.tmpl",
-		}
+	files = []string{
+		"./static/html/home.page.tmpl",
+		"./static/html/basic.layout.tmpl",
 	}
 	var tpl = template.Must(template.ParseFiles(files...))
-	tpl.Execute(rw, nil)
+	tpl.Execute(rw, conditionsMap)
 }
 
 func SecondPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -35,20 +28,12 @@ func SecondPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		http.NotFound(rw, r)
 		return
 	}
-
-	if flag == false {
-		files = []string{
-			"./static/html/newpage.tmpl",
-			"./static/html/basic.layout.tmpl",
-		}
-	} else {
-		files = []string{
-			"./static/html/newpage.signed.tmpl",
-			"./static/html/basic.layout.tmpl",
-		}
+	files = []string{
+		"./static/html/newpage.tmpl",
+		"./static/html/basic.layout.tmpl",
 	}
 	var tpl = template.Must(template.ParseFiles(files...))
-	tpl.Execute(rw, nil)
+	tpl.Execute(rw, conditionsMap)
 }
 
 func SignPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -59,6 +44,19 @@ func SignPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 
 	var files = []string{
 		"./static/html/main_sign.tmpl",
+	}
+	var tpl = template.Must(template.ParseFiles(files...))
+	tpl.Execute(rw, conditionsMap)
+}
+
+func ProfilePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	if r.URL.Path != "/profile" {
+		http.NotFound(rw, r)
+		return
+	}
+	files = []string{
+		"./static/html/profile.page.tmpl",
+		"./static/html/basic.layout.tmpl",
 	}
 	var tpl = template.Must(template.ParseFiles(files...))
 	tpl.Execute(rw, conditionsMap)

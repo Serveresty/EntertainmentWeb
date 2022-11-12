@@ -43,4 +43,5 @@ func routes(r *httprouter.Router, DB *sql.DB) {
 	r.GET("/", controller.HomePage)
 	r.GET("/newpage", controller.SecondPage)
 	r.GET("/logout", controller.LogoutHandler)
+	r.GET("/profile", controller.ProfilePage)
 }

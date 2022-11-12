@@ -56,6 +56,7 @@ func (s *Complete) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 
 		if password != confirm_password {
 			conditionsMap["LoginError"] = true
+			conditionsMap["LoginFlagAccept"] = false
 			http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
 			return
 		} else {
@@ -78,6 +79,7 @@ func (s *Complete) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 			if errdb != nil {
 				if strings.Contains(errdb.Error(), "Error 1062") {
 					conditionsMap["EmailUsernameError"] = true
+					conditionsMap["LoginFlagAccept"] = false
 					http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
 					return
 				}
@@ -94,6 +96,8 @@ func (s *Complete) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 			if err != nil {
 				rw.Write([]byte("GWWWW"))
 			}
+
+			conditionsMap["LoginFlagAccept"] = true
 			http.Redirect(rw, r, "/", http.StatusFound)
 		}
 	}
@@ -102,53 +106,58 @@ func (s *Complete) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 func (s *Complete) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	conditionsMap = map[string]any{}
 
-	if session, _ := loggedUserSession.Get(r, "authenticated-user-session"); session != nil {
+	session, _ := loggedUserSession.Get(r, "authenticated-user-session")
+
+	if session != nil {
 		conditionsMap["username"] = session.Values["username"]
-	} else {
-		email := r.FormValue("username")
-		password := r.FormValue("password")
-
-		conditionsMap["AccessError"] = false
-		conditionsMap["WrongPassword"] = false
-
-		row := s.Data.QueryRow(`SELECT password FROM users_account WHERE email = ?`, email)
-		if row.Err() != nil {
-			rw.Write([]byte("first"))
-			rw.Write([]byte(row.Err().Error()))
-			return
-		}
-		var result string
-		if err := row.Scan(&result); err != nil {
-			if err == sql.ErrNoRows {
-				conditionsMap["AccessError"] = true
-				http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
-				return
-			}
-			rw.Write([]byte(err.Error()))
-			return
-		}
-
-		if err := bcrypt.CompareHashAndPassword([]byte(result), []byte(password)); err != nil {
-			if err == bcrypt.ErrMismatchedHashAndPassword {
-				conditionsMap["WrongPassword"] = true
-				http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
-				return
-			}
-			rw.Write([]byte(err.Error()))
-			return
-		}
-
-		conditionsMap["LoginError"] = false
-		conditionsMap["username"] = email
-
-		session, _ := loggedUserSession.New(r, "authenticated-user-session")
-		session.Values["username"] = email
-		err := session.Save(r, rw)
-		if err != nil {
-			rw.Write([]byte("GWWWW"))
-		}
-		http.Redirect(rw, r, "/", http.StatusFound)
 	}
+
+	email := r.FormValue("username")
+	password := r.FormValue("password")
+
+	conditionsMap["AccessError"] = false
+	conditionsMap["WrongPassword"] = false
+
+	row := s.Data.QueryRow(`SELECT password FROM users_account WHERE email = ?`, email)
+	if row.Err() != nil {
+		rw.Write([]byte("first"))
+		rw.Write([]byte(row.Err().Error()))
+		return
+	}
+	var result string
+	if err := row.Scan(&result); err != nil {
+		if err == sql.ErrNoRows {
+			conditionsMap["AccessError"] = true
+			conditionsMap["LoginFlagAccept"] = false
+			http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
+			return
+		}
+		rw.Write([]byte(err.Error()))
+		return
+	}
+
+	if err := bcrypt.CompareHashAndPassword([]byte(result), []byte(password)); err != nil {
+		if err == bcrypt.ErrMismatchedHashAndPassword {
+			conditionsMap["WrongPassword"] = true
+			conditionsMap["LoginFlagAccept"] = false
+			http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
+			return
+		}
+		rw.Write([]byte(err.Error()))
+		return
+	}
+
+	conditionsMap["LoginError"] = false
+	conditionsMap["username"] = email
+
+	session, _ = loggedUserSession.New(r, "authenticated-user-session")
+	session.Values["username"] = email
+	err := session.Save(r, rw)
+	if err != nil {
+		rw.Write([]byte("GWWWW"))
+	}
+	conditionsMap["LoginFlagAccept"] = true
+	http.Redirect(rw, r, "/", http.StatusFound)
 }
 
 func HashPassword(password string) (string, error) {
@@ -159,14 +168,15 @@ func HashPassword(password string) (string, error) {
 func LogoutHandler(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	//read from session
 	session, _ := loggedUserSession.Get(r, "authenticated-user-session")
+	for k := range conditionsMap {
+		delete(conditionsMap, k)
+	}
 
-	// remove the username
-	session.Values["username"] = ""
 	err := session.Save(r, rw)
 
 	if err != nil {
 		log.Println(err)
 	}
-
-	rw.Write([]byte("Logged out!"))
+	conditionsMap["LoginFlagAccept"] = false
+	http.Redirect(rw, r, "/", http.StatusFound)
 }

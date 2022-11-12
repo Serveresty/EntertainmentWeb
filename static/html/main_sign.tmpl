@@ -38,11 +38,14 @@
       <div class="form-container sign-in-container">
         <form id = "log" action="/main-sign-in" method="post">
           <h1>Sign In</h1>
-          <div class="social-container">
+          <!-- <div class="social-container">
             <a href="#" class="social"><i class="fab fa-instagram"></i></a>
             <a href="#" class="social"><i class="fab fa-google"></i></a>
             <a href="#" class="social"><i class="fab fa-tiktok"></i></a>
-          </div>
+          </div>-->
+          {{if .username}}
+                   <p><b>{{.username}}</b>, you're already logged in! <a href="/logout">Logout!</a></p>
+          {{else}}
           <span>or use your account</span>
           <input name = "username" type="email" placeholder="Email" />
           <input name = "password" type="password" placeholder="Password" />
@@ -50,6 +53,7 @@
           {{if .AccessError}}<p style="color:red">User not found</p>{{end}}
           {{if .WrongPassword}}<p style="color:red">Wrong password</p>{{end}}
           <button type="submit">Sign In</button>
+          {{end}}
         </form>
       </div>
       <div class="overlay-container">

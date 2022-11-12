@@ -1,6 +1,6 @@
 {{template "basic" .}}
 
-{{define "title"}}Новая страница{{end}}
+{{define "title"}}Profile{{end}}
 
 {{define "sign-btn"}}
 {{if not .LoginFlagAccept}}<td align="right"><a class="buttonLog" href="/main-sign">Sign In/Sign Up</a></td>{{end}}
@@ -11,25 +11,25 @@
 
 {{define "left-bar"}}
 <ul type="none">
-<li>Это
-<li>Новая
-<li>Страница
-<li>Сайта
-<li>!!!!
+<li>Hi
+<li>Hello
+<li>Wassup
+<li>Kon ni chi ha
+<li>Ola
 </ul>
 {{end}}
 
 {{define "content"}}
-<h1>It is template for SECOND page!!!</h1>
-<img src="../static/pictures/secondpage.jpg" width="871" height="451">
+<h1>Welcome!!! Your email: {{ .username}}</h1>
+<img src="../static/pictures/profile.jpg" width="871" height="451">
 {{end}}
 
 {{define "right-bar"}}
 <ul type="none">
-<li>Это
-<li>Новая
-<li>Страница
-<li>Сайта
-<li>!!!!
+<li>Hi
+<li>Hello
+<li>Wassup
+<li>Kon ni chi ha
+<li>Ola
 </ul>
 {{end}}
