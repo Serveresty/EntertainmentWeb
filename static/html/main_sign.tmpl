@@ -44,9 +44,11 @@
             <a href="#" class="social"><i class="fab fa-tiktok"></i></a>
           </div>
           <span>or use your account</span>
-          <input name = "email" type="email" placeholder="Email" />
+          <input name = "username" type="email" placeholder="Email" />
           <input name = "password" type="password" placeholder="Password" />
           <a href="#">Forgot your password?</a>
+          {{if .AccessError}}<p style="color:red">User not found</p>{{end}}
+          {{if .WrongPassword}}<p style="color:red">Wrong password</p>{{end}}
           <button type="submit">Sign In</button>
         </form>
       </div>

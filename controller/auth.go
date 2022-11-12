@@ -100,8 +100,19 @@ func (s *Complete) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 }
 
 func (s *Complete) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	email := r.FormValue("email")
+	conditionsMap = map[string]any{}
+
+	session, _ := loggedUserSession.Get(r, "authenticated-user-session")
+
+	if session != nil {
+		conditionsMap["username"] = session.Values["username"]
+	}
+
+	email := r.FormValue("username")
 	password := r.FormValue("password")
+
+	conditionsMap["AccessError"] = false
+	conditionsMap["WrongPassword"] = false
 
 	row := s.Data.QueryRow(`SELECT password FROM users_account WHERE email = ?`, email)
 	if row.Err() != nil {
@@ -112,7 +123,8 @@ func (s *Complete) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.
 	var result string
 	if err := row.Scan(&result); err != nil {
 		if err == sql.ErrNoRows {
-			rw.Write([]byte("User not found"))
+			conditionsMap["AccessError"] = true
+			http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
 			return
 		}
 		rw.Write([]byte(err.Error()))
@@ -121,13 +133,14 @@ func (s *Complete) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.
 
 	if err := bcrypt.CompareHashAndPassword([]byte(result), []byte(password)); err != nil {
 		if err == bcrypt.ErrMismatchedHashAndPassword {
-			rw.Write([]byte("User not found"))
+			conditionsMap["WrongPassword"] = true
+			http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
 			return
 		}
 		rw.Write([]byte(err.Error()))
 		return
 	}
-	rw.Write([]byte("User found")) //Поменять
+	http.Redirect(rw, r, "/", http.StatusFound)
 }
 
 func HashPassword(password string) (string, error) {
