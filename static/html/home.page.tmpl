@@ -4,8 +4,7 @@
 
 {{define "sign-btn"}}
 {{if not .LoginFlagAccept}}<td align="right"><a class="buttonLog" href="/main-sign">Sign In/Sign Up</a></td>{{end}}
-{{if .LoginFlagAccept}}<td align="right"><a class="buttonLog" href="/profile">My profile</a></td>
-<td align="right"><a class="buttonLog" href="/logout">Exit</a></td>
+{{if .LoginFlagAccept}}<td align="right"><a class="buttonLog" href="/profile">My profile</a>   <a class="buttonLog" href="/logout">Exit</a></td>
 {{end}}
 {{end}}
 
@@ -20,8 +19,8 @@
 {{end}}
 
 {{define "content"}}
-<h1>It is template for home page!!!</h1>
-<img src="../static/pictures/lbl.png">
+<a href="/roulette"><div id="Roulette"><h1 class="textdecor">Roulette Game</h1></div></a>
+<a href="/dice"><div id="Dice"><h1 class="textdecor">Dice Game</h1></div></a>
 {{end}}
 
 {{define "right-bar"}}

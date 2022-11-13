@@ -1,6 +1,6 @@
 {{template "basic" .}}
 
-{{define "title"}}Profile{{end}}
+{{define "title"}}Dice Game{{end}}
 
 {{define "sign-btn"}}
 {{if not .LoginFlagAccept}}<td align="right"><a class="buttonLog" href="/main-sign">Sign In/Sign Up</a></td>{{end}}
@@ -19,8 +19,22 @@
 {{end}}
 
 {{define "content"}}
-<h1>Welcome!!! Your Username: {{ .username}}</h1>
-<img src="../static/pictures/profile.jpg" width="871" height="451">
+<!--<script src="/static/js/dice.js"></script>-->
+<div id="DiceGame">
+<form>
+<label>Bet amount</label>
+<input name="betamount" class="input number" type="number" min="0" placeholder="Bet Amount" />
+
+<label>Range</label>
+<input name="range" class="input number" type="number" min="0" max="9999" />
+
+<label>Multiply</label>
+<input name="multy" class="input number" type="number" min="0" />
+
+<label>Win Chance</label>
+<input name="winchance" class="input number" type="number" min="0" max="100" />
+<form>
+</div>
 {{end}}
 
 {{define "right-bar"}}

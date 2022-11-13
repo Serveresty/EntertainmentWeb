@@ -61,3 +61,29 @@ func ProfilePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	var tpl = template.Must(template.ParseFiles(files...))
 	tpl.Execute(rw, conditionsMap)
 }
+
+func RoulettePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	if r.URL.Path != "/roulette" {
+		http.NotFound(rw, r)
+		return
+	}
+	files = []string{
+		"./static/html/newpage.tmpl",
+		"./static/html/basic.layout.tmpl",
+	}
+	var tpl = template.Must(template.ParseFiles(files...))
+	tpl.Execute(rw, conditionsMap)
+}
+
+func DicePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	if r.URL.Path != "/dice" {
+		http.NotFound(rw, r)
+		return
+	}
+	files = []string{
+		"./static/html/dice.tmpl",
+		"./static/html/basic.layout.tmpl",
+	}
+	var tpl = template.Must(template.ParseFiles(files...))
+	tpl.Execute(rw, conditionsMap)
+}

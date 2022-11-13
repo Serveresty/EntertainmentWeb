@@ -5,7 +5,7 @@ body {
 
 #header {
     height: 50px;
-    width: 1390px; 
+    width: 1690px; 
     background: #900000; 
     height: 50px; 
     margin-right: auto; 
@@ -22,35 +22,38 @@ body {
 }
 
 #main {
-    width: 1415px; 
+    width: 1815px; 
     margin-right: auto; 
     margin-left: auto;
     margin-top: 5px;
 }
 
 #left-bar {
-    height: 592px;
-    width: 236px; 
+    height: 692px;
+    width: 336px; 
     float: left; 
     color: white; 
     background: #008080; 
     padding: 10px; 
     margin-right: 5px;
+    margin-left: 50px;
 }
 
 #right-bar {
-    height: 592px;
-    width: 236px; 
+    height: 692px;
+    width: 336px; 
     float: right; 
     color: white; 
     background: #008080; 
     padding: 10px; 
     margin-right: 5px;
+    margin-left: 5px;
+    float: left;
 }
 
 #content {
-    height: 592px;
-    width: 868px; 
+    height: 692px;
+    width: 968px; 
     float: left; 
     padding: 10px; 
     background: #e0e0e0; 
@@ -60,7 +63,7 @@ body {
     text-decoration:underline;
     text-align:right;
     height: 50px;
-    width:1390px;
+    width:1690px;
 	padding: 10px; 
 	background:#444;
 	color:#fff;
@@ -71,7 +74,6 @@ body {
 
 .text {
     width:  100%;
-    border-spacing: 0;
 }
 
 .buttonNavigation {
@@ -106,3 +108,62 @@ background: rgb(33,147,90);
 box-shadow: 0 3px rgb(33,147,90) inset;
 }
 div { border-radius: 10px; }
+
+#Roulette {
+    height: 175px;
+    width: 455px; 
+    float: left; 
+    padding: 10px; 
+    background-image: url(/static/pictures/roulettebtn.jpeg);
+    margin-right: 5px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 120px;
+    color: white;
+}
+
+.textdecor {
+    color: #c40808;
+    background-image: -webkit-linear-gradient(0deg, #c40808 27%, #00ffee 48%, #9c0599 71%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1px white;
+    font-family: fantasy;
+    font-size:35px;
+}
+
+#Dice {
+    height: 175px;
+    width: 455px; 
+    float: left; 
+    padding: 10px; 
+    background-image: url(/static/pictures/dicebtn.jpg);
+    margin-left: 5px; 
+    text-align: center;
+    vertical-align: middle;
+    line-height: 120px;
+    color: white;
+}
+
+#DiceGame {
+    position: absolute;
+    left: 50%;
+    top: 47%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    height: 640px;
+    width: 755px; 
+    float: left; 
+    padding: 10px; 
+    background:rgb(53, 167, 110);
+    margin-right: 5px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 120px;
+    color: white;
+}

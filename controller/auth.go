@@ -19,7 +19,7 @@ type any interface{}
 
 var conditionsMap map[string]any
 
-type Complete struct {
+type DataBase struct {
 	Data *sql.DB
 }
 
@@ -35,7 +35,7 @@ func init() {
 	}
 }
 
-func (s *Complete) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func (s *DataBase) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	conditionsMap = map[string]any{}
 
 	session, _ := loggedUserSession.Get(r, "authenticated-user-session")
@@ -103,7 +103,7 @@ func (s *Complete) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 	}
 }
 
-func (s *Complete) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func (s *DataBase) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	conditionsMap = map[string]any{}
 
 	session, _ := loggedUserSession.Get(r, "authenticated-user-session")
@@ -112,13 +112,13 @@ func (s *Complete) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.
 		conditionsMap["username"] = session.Values["username"]
 	}
 
-	email := r.FormValue("username")
+	username := r.FormValue("username")
 	password := r.FormValue("password")
 
 	conditionsMap["AccessError"] = false
 	conditionsMap["WrongPassword"] = false
 
-	row := s.Data.QueryRow(`SELECT password FROM users_account WHERE email = ?`, email)
+	row := s.Data.QueryRow(`SELECT password FROM users_account WHERE username = ?`, username)
 	if row.Err() != nil {
 		rw.Write([]byte("first"))
 		rw.Write([]byte(row.Err().Error()))
@@ -148,10 +148,10 @@ func (s *Complete) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.
 	}
 
 	conditionsMap["LoginError"] = false
-	conditionsMap["username"] = email
+	conditionsMap["username"] = username
 
 	session, _ = loggedUserSession.New(r, "authenticated-user-session")
-	session.Values["username"] = email
+	session.Values["username"] = username
 	err := session.Save(r, rw)
 	if err != nil {
 		rw.Write([]byte("GWWWW"))

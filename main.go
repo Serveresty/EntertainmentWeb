@@ -33,7 +33,7 @@ func main() {
 func routes(r *httprouter.Router, DB *sql.DB) {
 	r.ServeFiles("/static/*filepath", http.Dir("static"))
 
-	handler := controller.Complete{Data: DB}
+	handler := controller.DataBase{Data: DB}
 	//test SignIn, SignOut
 	r.GET("/main-sign", controller.SignPage)
 	r.POST("/main-sign-up", handler.SignUp)
@@ -44,4 +44,6 @@ func routes(r *httprouter.Router, DB *sql.DB) {
 	r.GET("/newpage", controller.SecondPage)
 	r.GET("/logout", controller.LogoutHandler)
 	r.GET("/profile", controller.ProfilePage)
+	r.GET("/roulette", controller.RoulettePage)
+	r.GET("/dice", controller.DicePage)
 }
