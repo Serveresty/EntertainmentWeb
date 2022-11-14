@@ -3,6 +3,11 @@ body {
     background-attachment: fixed;
 }
 
+.wrapper {
+    margin-right: auto; 
+    margin-left: auto;
+}
+
 #header {
     height: 50px;
     width: 1690px; 
@@ -11,6 +16,7 @@ body {
     margin-right: auto; 
     margin-left: auto; 
     padding: 10px; 
+    flex: none;
 }
 
 .logo {
@@ -48,7 +54,6 @@ body {
     padding: 10px; 
     margin-right: 5px;
     margin-left: 5px;
-    float: left;
 }
 
 #content {
@@ -148,22 +153,17 @@ div { border-radius: 10px; }
 
 #DiceGame {
     position: absolute;
-    left: 50%;
-    top: 47%;
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    left: 29.8%;
+    top: 12%;
 
     height: 640px;
     width: 755px; 
     float: left; 
     padding: 10px; 
     background:rgb(53, 167, 110);
-    margin-right: 5px;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 120px;
     color: white;
+}
+
+#DiceElements {
+    
 }
