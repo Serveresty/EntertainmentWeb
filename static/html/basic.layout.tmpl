@@ -1,42 +1,53 @@
 {{define "basic"}}
 <html>
     <head>
-        <meta charset='utf-8'>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=10">
         <title>{{template "title" .}}</title>
         <link rel="stylesheet" href="/static/css/style.css"> 
         <script src="../js/main.js"></script>
     </head>
     <body>
-    <div class="wrapper">
-        <div id="header">
-            <table class="text">
-                <tr>
-                 <td align="left"><a class="logo" href="/">Knight Casino</a></td>
-                 <td>
-                  <a class="buttonNavigation" href="/newpage">Roulette</a>
-                  <a class="buttonNavigation" href="/newpage">Dice</a>
-                 </td>
-                 {{template "sign-btn" .}}
-                </tr>
-            </table>
+    <div class="content-wrapper">
+        <header class="header">
+			<table class="hdbtn">
+				<tr>
+					<td><a class="logo" href="/">Knight Casino</a></td>
+					<td>
+						<a class="buttonNavigation" href="/roulette">Roulette</a>
+						<a class="buttonNavigation" href="/dice">Dice</a>
+					</td>
+					{{template "sign-btn" .}}
+				</tr>
+			</table>
+        </header>
+
+        <div class="container clearfix">
+            <main class="content">
+			{{ template "content" .}}
+            </main>
+            <aside class="sidebar sidebar1">
+				<div class="msg"></div>
+				<div class="snd-msg">
+					<input class="message-input" name="message" type="text" placeholder="Enter Message">
+					<p>
+					<button class="button-input">Send Message</button>
+				</div>
+            </aside>
+            <aside class="sidebar sidebar2">
+				<ul class="refs" >
+					<li><a href="/roulette"></a></li>
+					<li><a href="/dice"></a></li>
+					<li><a href="#"></a></li>
+					<li><a href="#"></a></li>
+				</ul>
+            </aside>
         </div>
-        <div style="clear: both;"></div>
-        <div id="main">
-            <div id="left-bar">
-                {{template "left-bar" .}}
-            </div>
-            <div id="content">
-                {{template "content" .}}
-            </div>
-            <div id="right-bar">
-                {{template "right-bar" .}}
-            </div>
-        </div>
-        <div style="clear: both;"></div>
-        <div id="footer">
+
+        <footer class="footer">
             <p> &copy; All right reserved by SingleKnight group.
-        </div>
-    </div>
+        </footer>
+    </div>  
     </body>
 </html>
 {{end}}

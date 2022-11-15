@@ -1,84 +1,168 @@
-body {
-    background-image: url(/static/pictures/dark.gif);
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.clearfix:after {
+    content: "";
+    display:block;
+    clear: both;
+}
+
+html, body {
+    height: 90%;
+    margin: 5px;
+    padding: 0;
+    font-family: Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333;
+    background-image: url(../pictures/dark.gif);
     background-attachment: fixed;
 }
 
-.wrapper {
-    margin-right: auto; 
-    margin-left: auto;
-}
-
-#header {
-    height: 50px;
-    width: 1690px; 
-    background: #900000; 
-    height: 50px; 
-    margin-right: auto; 
-    margin-left: auto; 
-    padding: 10px; 
-    flex: none;
-}
-
 .logo {
-    -webkit-text-stroke: 1px white;
+	margin-left: 10px;
+	margin-top: 5px;
+	-webkit-text-stroke: 1px white;
     font-family: fantasy;
     color:rgb(64,199,129);
     font-size:35px;
     text-decoration: none;
 }
 
-#main {
-    width: 1815px; 
-    margin-right: auto; 
-    margin-left: auto;
-    margin-top: 5px;
+.header, .content-wrapper, .container, .content, .footer {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
 }
 
-#left-bar {
-    height: 692px;
-    width: 336px; 
-    float: left; 
-    color: white; 
+.header {
+    height: 60px;
+    background: #900000; 	
+    color: #fff;
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none;
+	margin: 5px;
+}
+
+.footer {
+    height: 60px;
+    background:#444;
+    color: #fff;
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+    -ms-flex: none;
+    flex: none;
+	margin: 5px;
+    font-size: 18px;
+    padding-left: 700px;
+}
+
+.content-wrapper {
+    margin: 0 auto;
+    flex-direction: column;
+    height: 100%;
+    width: 1700px;
+}
+
+.container {
+    flex-wrap: nowrap;
+    flex: 1 0 auto;
+}
+
+.content {
+    width: 100%;
+    flex: 1 1 auto;
+    order: 0;
+    order: 1;
+	margin: 5px;
+	background: #e0e0e0; 
+}
+
+.sidebar {
     background: #008080; 
-    padding: 10px; 
-    margin-right: 5px;
-    margin-left: 50px;
+    flex: 0 0 auto;
+	margin: 5px;
 }
 
-#right-bar {
-    height: 692px;
-    width: 336px; 
-    float: right; 
-    color: white; 
-    background: #008080; 
-    padding: 10px; 
-    margin-right: 5px;
-    margin-left: 5px;
+.sidebar1 {
+    width: 300px;
+    order: 1;
+    order: 0;
 }
 
-#content {
-    height: 692px;
-    width: 968px; 
-    float: left; 
-    padding: 10px; 
-    background: #e0e0e0; 
+.sidebar2 {
+    width: 100px;
+    order: 2;
+    order: 2;
 }
 
-#footer {
-    text-decoration:underline;
-    text-align:right;
-    height: 50px;
-    width:1690px;
-	padding: 10px; 
-	background:#444;
-	color:#fff;
-	margin-right: auto; 
-    margin-left: auto; 
-    margin-top: 5px;
+.Roulette-btn, .Dice-btn, .Crash-btn, .Jackpot-btn {
+	width: 550px;
+	height: 250px;
+	margin: 40px;
+	text-align: center;
+	line-height: 240px;
 }
 
-.text {
-    width:  100%;
+.Roulette-btn {
+	background-image: url(/static/pictures/roulettebtn.jpeg);
+}
+
+.Dice-btn {
+	background-image: url(../pictures/dicebtn.jpg);
+}
+
+.Crash-btn {
+	background-image: url(../pictures/crashbtn.jpg);
+}
+
+.Jackpot-btn {
+	background-image: url(../pictures/jackpotbtn.jpg);
+}
+
+
+
+.header, .sidebar, .content, .footer, .button-games, .msg, .snd-msg, .Roulette-btn, .Dice-btn, .Crash-btn, .Jackpot-btn {
+	border-radius: 10px;
+}
+
+.msg {
+	margin: 25px;
+	background: white;
+	width: 250px;
+	height: 500px;
+}
+
+.snd-msg {
+	margin: 25px;
+	background: pink;
+	width: 250px;
+	height: 100px;
+	padding: 15px;
+}
+
+.message-input {
+	width: 220px;
+	height: 30px;
+}
+
+.button-input {
+	width: 220px;
+}
+
+.refs {
+	line-height: 100px;
+}
+
+.hdbtn {
+	width: 100%; 
 }
 
 .buttonNavigation {
@@ -106,25 +190,12 @@ a.buttonLog {
     background: rgb(64,199,129);
     box-shadow: 0 -3px rgb(53,167,110) inset;
     transition: 0.2s;
+    margin-right: 10px;
   } 
 a.buttonLog:hover { background: rgb(53, 167, 110); }
 a.buttonLog:active {
 background: rgb(33,147,90);
 box-shadow: 0 3px rgb(33,147,90) inset;
-}
-div { border-radius: 10px; }
-
-#Roulette {
-    height: 175px;
-    width: 455px; 
-    float: left; 
-    padding: 10px; 
-    background-image: url(/static/pictures/roulettebtn.jpeg);
-    margin-right: 5px;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 120px;
-    color: white;
 }
 
 .textdecor {
@@ -138,32 +209,26 @@ div { border-radius: 10px; }
     font-size:35px;
 }
 
-#Dice {
-    height: 175px;
-    width: 455px; 
-    float: left; 
-    padding: 10px; 
-    background-image: url(/static/pictures/dicebtn.jpg);
-    margin-left: 5px; 
-    text-align: center;
-    vertical-align: middle;
-    line-height: 120px;
-    color: white;
+.DiceGame {
+    border-radius: 100px;
+    width: 850px;
+	height: 450px;
+	margin-left: 200px;
+    margin-top: 110px;
+    padding-top: 20px;
+	text-align: center;
+    line-height: 50px;
 }
 
-#DiceGame {
-    position: absolute;
-    left: 29.8%;
-    top: 12%;
-
-    height: 640px;
-    width: 755px; 
-    float: left; 
-    padding: 10px; 
-    background:rgb(53, 167, 110);
-    color: white;
+#BetAmount, #Range, #Multiply, #WinChance, #Profit {
+    width: 100px;
 }
 
-#DiceElements {
-    
+.DiceElements {
+    background: #444;
+    color: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    line-height: 100px;
 }

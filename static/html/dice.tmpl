@@ -8,58 +8,65 @@
 {{end}}
 {{end}}
 
-{{define "left-bar"}}
-<ul type="none">
-<li>Hi
-<li>Hello
-<li>Wassup
-<li>Kon ni chi ha
-<li>Ola
-</ul>
-{{end}}
-
 {{define "content"}}
 <script src="/static/js/dice.js"></script>
-<div id="DiceGame">
 <form>
-<div id="DiceElements">
+<table class="DiceGame">
+<tr>
+
+<td>
+
+<div class="DiceElements">
 <label>Bet amount</label>
 <br>
 <input name="betamount" id="BetAmount" type="number" min="0" placeholder="Bet Amount" value="1" oninput='BetEdit(this.value)' required />
 <span id="WrondAmount"></span>
 </div>
 
-<div id="DiceElements">
+</td>
+<td></td>
+<td>
+
+<div class="DiceElements">
+<label>Profit</label>
+<br>
+<input name="profit" id="Profit" type="number" step="0.01" min="1" value="" required />
+<span id="WrondProfit"></span>
+</div>
+
+</td>
+</tr>
+
+<tr>
+<td>
+<div class="DiceElements">
 <label>Range</label>
 <br>
 <input name="range" id="Range" type="number" step="0.01" min="0" max="9999" value="5000" oninput='RangeEdit(this.value)' required />
 <span id="WrondRange"></span>
 </div>
+</td>
 
-<div id="DiceElements">
+<td>
+<div class="DiceElements">
 <label>Multiply</label>
 <br>
 <input name="multy" id="Multiply" type="number" step="0.01" min="1" value="1.9" oninput='MultiplyEdit(this.value)' required />
 <span id="WrondMultiply"></span>
 </div>
+</td>
 
-<div id="DiceElements">
+<td>
+<div class="DiceElements">
 <label>Win Chance</label>
 <br>
 <input name="winchance" id="WinChance" maxlength="2" type="number" step="0.01" min="0" max="94" value="50" oninput='WinChanceEdit(this.value)' required />
 <span id="WrondChance"></span>
 </div>
+</td>
 
+</tr>
+
+</table>
 </form>
-</div>
-{{end}}
-
-{{define "right-bar"}}
-<ul type="none">
-<li>Hi
-<li>Hello
-<li>Wassup
-<li>Kon ni chi ha
-<li>Ola
-</ul>
 {{end}}

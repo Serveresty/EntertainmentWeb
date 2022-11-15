@@ -1,6 +1,6 @@
 {{template "basic" .}}
 
-{{define "title"}}Домашняя страница{{end}}
+{{define "title"}}Main Page{{end}}
 
 {{define "sign-btn"}}
 {{if not .LoginFlagAccept}}<td align="right"><a class="buttonLog" href="/main-sign">Sign In/Sign Up</a></td>{{end}}
@@ -8,27 +8,15 @@
 {{end}}
 {{end}}
 
-{{define "left-bar"}}
-<ul type="none">
-<li>Hi
-<li>Hello
-<li>Wassup
-<li>Kon ni chi ha
-<li>Ola
-</ul>
-{{end}}
-
 {{define "content"}}
-<a href="/roulette"><div id="Roulette"><h1 class="textdecor">Roulette Game</h1></div></a>
-<a href="/dice"><div id="Dice"><h1 class="textdecor">Dice Game</h1></div></a>
-{{end}}
-
-{{define "right-bar"}}
-<ul type="none">
-<li>Hi
-<li>Hello
-<li>Wassup
-<li>Kon ni chi ha
-<li>Ola
-</ul>
+<table class="homepage-content">
+    <tr>
+        <td><a href="/roulette" style="text-decoration: none; "><div class="Roulette-btn"><h1 class="textdecor">Roulette Game</h1></div></a></td>
+        <td><a href="/dice" style="text-decoration: none; "><div class="Dice-btn"><h1 class="textdecor">Dice Game</h1></div></a></td>
+    </tr>
+    <tr>
+        <td><a href="#" style="text-decoration: none; "><div class="Crash-btn"><h1 class="textdecor">Crash Game</h1></div></a></td>
+        <td><a href="#" style="text-decoration: none; "><div class="Jackpot-btn"><h1 class="textdecor">Jackpot Game</h1></div></a></td>
+    </tr>
+</table>
 {{end}}
