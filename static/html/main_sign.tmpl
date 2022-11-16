@@ -44,7 +44,7 @@
             <a href="#" class="social"><i class="fab fa-tiktok"></i></a>
           </div>-->
           {{if .username}}
-                   <p><b>{{.username}}</b>, you're already logged in! <a href="/logout">Logout!</a></p>
+                   <p><b>{{ .username }}</b>, you're already logged in! <a href="/logout">Logout!</a></p>
           {{else}}
           <span>or use your account</span>
           <input name = "username" type="text" placeholder="Username" />

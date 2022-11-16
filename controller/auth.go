@@ -51,6 +51,7 @@ func (s *DataBase) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 		confirm_password := r.FormValue("confirm_password")
 		email := r.FormValue("email")
 		role := "user"
+		conditionsMap["balance"] = 0.0
 
 		conditionsMap["EmailUsernameError"] = false
 
@@ -156,6 +157,27 @@ func (s *DataBase) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.
 	if err != nil {
 		rw.Write([]byte("GWWWW"))
 	}
+
+	var bal string
+	balance := s.Data.QueryRow(`SELECT balance FROM users_account WHERE username = ?`, username)
+	if balance.Err() != nil {
+		rw.Write([]byte("first_balance"))
+		rw.Write([]byte(balance.Err().Error()))
+		return
+	}
+
+	if err := balance.Scan(&bal); err != nil {
+		if err == sql.ErrNoRows {
+			rw.Write([]byte("EEEEEEEE"))
+			http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
+			return
+		}
+		rw.Write([]byte(err.Error()))
+		return
+	}
+
+	conditionsMap["balance"] = bal
+
 	conditionsMap["LoginFlagAccept"] = true
 	http.Redirect(rw, r, "/", http.StatusFound)
 }
@@ -177,6 +199,6 @@ func LogoutHandler(rw http.ResponseWriter, r *http.Request, p httprouter.Params)
 	if err != nil {
 		log.Println(err)
 	}
-	conditionsMap["LoginFlagAccept"] = false
+	session = nil
 	http.Redirect(rw, r, "/", http.StatusFound)
 }

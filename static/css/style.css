@@ -243,3 +243,74 @@ box-shadow: 0 3px rgb(33,147,90) inset;
     width: 550px;
     border-radius: 10px;
 }
+
+.balance {
+    -webkit-text-stroke: 1px white;
+    font-family: fantasy;
+    color:rgb(64,199,129);
+    font-size: 25px;
+    text-decoration: none;
+}
+
+.profile, .cash {
+    width: 665px;
+    height: 650px;
+    margin: 5px;
+    background: #333;
+    border-radius: 10px;
+}
+
+.profile {
+    border-right: 5px solid red;
+    border-bottom: 5px solid red;
+    border-left: 5px solid blue;
+    border-top: 5px solid blue;
+}
+
+.cash {
+    border-top: 5px solid red;
+    border-right: 5px solid red;
+    border-left: 5px solid blue;
+    border-bottom: 5px solid blue;
+}
+
+.avatar {
+    background-image: url(/static/pictures/ava.jpg);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 2px solid #00ffee;
+    margin-left: 35%;
+    margin-top: 2%;
+}
+
+.stats {
+    -webkit-text-stroke: 1px white;
+    font-family: fantasy;
+    color:rgb(64,199,129);
+    font-size: 25px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 40px;
+}
+
+.GameHistory {
+    width: 600px;
+    height: 200px;
+    background: #9c0599;
+    margin-left: 25px;
+    margin-top: 125px;
+    border-radius: 10px;
+}
+
+.gm-hs {
+    background: rgb(83, 197, 150); 
+    border-radius: 10px 10px 0 0; 
+    text-align: center;
+
+    -webkit-text-stroke: 1px white;
+    font-family: fantasy;
+    color:rgb(64,199,129);
+    font-size: 25px;
+    text-decoration: none;
+}

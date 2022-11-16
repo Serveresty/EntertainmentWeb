@@ -2,12 +2,6 @@
 
 {{define "title"}}Новая страница{{end}}
 
-{{define "sign-btn"}}
-{{if not .LoginFlagAccept}}<td align="right"><a class="buttonLog" href="/main-sign">Sign In/Sign Up</a></td>{{end}}
-{{if .LoginFlagAccept}}<td align="right"><a class="buttonLog" href="/profile">My profile</a>   <a class="buttonLog" href="/logout">Exit</a></td>
-{{end}}
-{{end}}
-
 {{define "content"}}
 <h1>It is template for SECOND page!!!</h1>
 <img src="../static/pictures/secondpage.jpg" width="871" height="451">

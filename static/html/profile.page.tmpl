@@ -2,13 +2,26 @@
 
 {{define "title"}}Profile{{end}}
 
-{{define "sign-btn"}}
-{{if not .LoginFlagAccept}}<td align="right"><a class="buttonLog" href="/main-sign">Sign In/Sign Up</a></td>{{end}}
-{{if .LoginFlagAccept}}<td align="right"><a class="buttonLog" href="/profile">My profile</a>   <a class="buttonLog" href="/logout">Exit</a></td>
-{{end}}
-{{end}}
-
 {{define "content"}}
-<h1>Welcome!!! Your Username: {{ .username}}</h1>
-<img src="../static/pictures/profile.jpg" width="871" height="451">
+<table>
+    <tr>
+        <td>
+            <div class="profile">
+                <div class="avatar">
+                </div>
+                <div class="stats">
+                    Username: {{ .username}}<br>
+                    Balance: {{ .balance}} $
+                </div>
+
+                <div class="GameHistory">
+                    <div class="gm-hs">Game History</div>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="cash"></div>
+        </td>
+    </tr>
+</table>
 {{end}}

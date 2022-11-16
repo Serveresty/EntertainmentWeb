@@ -13,11 +13,9 @@
 			<table class="hdbtn">
 				<tr>
 					<td><a class="logo" href="/">Knight Casino</a></td>
-					<td>
-						<a class="buttonNavigation" href="/roulette">Roulette</a>
-						<a class="buttonNavigation" href="/dice">Dice</a>
-					</td>
-					{{template "sign-btn" .}}
+					{{if not .LoginFlagAccept}}<td align="right" style="width: 25%"><a class="buttonLog" href="/main-sign">Sign In/Sign Up</a></td>{{end}}
+                    {{if .LoginFlagAccept}}<td align="right"><span class="balance">{{ .balance }} $</span></td><td align="right" style="width: 15%"> <a class="buttonLog" href="/profile">My profile</a>   <a class="buttonLog" href="/logout">Exit</a></td>
+                    {{end}}
 				</tr>
 			</table>
         </header>
@@ -36,10 +34,13 @@
             </aside>
             <aside class="sidebar sidebar2">
                 <div class="right-menu">
-					<a href="/roulette"></a>
-					<a href="/dice"></a>
-					<a href="#"></a>
-					<a href="#"></a>
+					<a href="/dice" style="margin-left: 28px;"></a>
+                    <p>
+                    <a href="/roulette" style="margin-left: 28px"></a>
+                    <p>
+					<a href="#" style="margin-left: 28px"></a>
+                    <p>
+					<a href="#" style="margin-left: 28px"></a>
                 </div>
             </aside>
         </div>
