@@ -3,7 +3,26 @@
 {{define "title"}}Dice Game{{end}}
 
 {{define "content"}}
-<script src="/static/js/dice.js"></script>
+<div class="shadow"></div>
+	<div class="random">
+		<div class="result"></div>
+		<div class="cards">
+			<div>1</div>
+			<div>2</div>
+			<div>3</div>
+			<div>4</div>
+			<div>5</div>
+			<div>6</div>
+			<div>7</div>
+			<div>8</div>
+			<div>9</div>
+			<div>10</div>
+			<div>11</div>
+		</div>
+	</div>
+	<button class="start" onclick="start()">START</button>
+    <script src="/static/js/dice.js"></script>
+
 <form>
 <table class="DiceGame">
 <tr>
