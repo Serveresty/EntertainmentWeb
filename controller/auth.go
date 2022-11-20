@@ -176,6 +176,25 @@ func (s *DataBase) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.
 		return
 	}
 
+	var emaill string
+	em := s.Data.QueryRow(`SELECT email FROM users_account WHERE username = ?`, username)
+	if em.Err() != nil {
+		rw.Write([]byte("first_email"))
+		rw.Write([]byte(em.Err().Error()))
+		return
+	}
+
+	if err := em.Scan(&emaill); err != nil {
+		if err == sql.ErrNoRows {
+			rw.Write([]byte("EEEEEEEE"))
+			http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
+			return
+		}
+		rw.Write([]byte(err.Error()))
+		return
+	}
+
+	conditionsMap["email"] = emaill
 	conditionsMap["balance"] = bal
 
 	conditionsMap["LoginFlagAccept"] = true

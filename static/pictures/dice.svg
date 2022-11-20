@@ -1,1 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:se="http://svg-edit.googlecode.com" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="54.956030896428956" height="67.6373539309526" style="">                                    <title>my vector image</title>                                    <!-- Created with Vector Paint - http://www.vectorpaint.yaks.com/ https://chrome.google.com/webstore/detail/hnbpdiengicdefcjecjbnjnoifekhgdo -->                                    <rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="#FFFFFF" stroke="none" style="" class=""/>                                <g class="currentLayer" style=""><title>Layer 1</title><rect fill="#242424" stroke="#04b804" stroke-width="2" stroke-linejoin="round" stroke-dashoffset="" fill-rule="nonzero" id="svg_1" x="1.2087891697883606" y="0.5934053659439087" width="53" height="66" style="color: rgb(0, 0, 0);" class=""/><rect fill="#009900" stroke="#04b804" stroke-width="2" stroke-linejoin="round" stroke-dashoffset="" fill-rule="nonzero" id="svg_2" x="18.20878916978836" y="18.59340536594391" width="22" height="5" style="color: rgb(0, 0, 0);" class=""/><rect fill="#009900" stroke="#04b804" stroke-width="2" stroke-linejoin="round" stroke-dashoffset="" fill-rule="nonzero" id="svg_5" x="29.59959727525711" y="18.96620810031891" width="5" height="33.40339279174805" style="color: rgb(0, 0, 0);" class="" transform="rotate(20.83320426940918 32.09959793090819,35.667900085449226) "/><path fill="#009900" stroke="#04b804" stroke-width="2" stroke-linejoin="round" stroke-dashoffset="" fill-rule="nonzero" marker-start="" marker-mid="" marker-end="" id="svg_3" d="M25.445876534735646,-5.48559685734503 L28.46416637681301,-5.48559685734503 L28.46416637681301,-5.48559685734503 C30.13112207582111,-5.48559685734503 31.482456218892366,-1.0576409053575162 31.482456218892366,4.4045199106994914 C31.482456218892366,9.866681390525372 30.13112207582111,14.294636678745064 28.46416637681301,14.294636678745064 L25.445876534735646,14.294636678745064 L25.445876534735646,-5.48559685734503 z" style="color: rgb(0, 0, 0);" class="" transform="rotate(89.02245330810547 28.464191436767578,4.404501438140866) "/><path fill="#009900" stroke="#04b804" stroke-width="2" stroke-linejoin="round" stroke-dashoffset="" fill-rule="nonzero" marker-start="" marker-mid="" marker-end="" d="M25.665656502997365,52.42649225207575 L28.68394634507473,52.42649225207575 L28.68394634507473,52.42649225207575 C30.35090204408283,52.42649225207575 31.702236187154085,56.85444820406326 31.702236187154085,62.31660902012027 C31.702236187154085,67.77877049994615 30.35090204408283,72.20672578816584 28.68394634507473,72.20672578816584 L25.665656502997365,72.20672578816584 L25.665656502997365,52.42649225207575 z" style="color: rgb(0, 0, 0);" class="" transform="rotate(-90.1686019897461 28.683948516845707,62.316612243652344) " id="svg_6"/></g></svg>
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 250.491 250.491" style="enable-background:new 0 0 250.491 250.491;" xml:space="preserve">
+<g>
+	<path d="M245.491,85.341c-2.761,0-5,2.238-5,5v3c0,2.762,2.239,5,5,5s5-2.238,5-5v-3C250.491,87.579,248.252,85.341,245.491,85.341
+		z"/>
+	<path d="M225.571,0.001h-103.49c-13.741,0-24.92,11.179-24.92,24.92v72.243H24.917C11.178,97.164,0,108.342,0,122.082v16.259
+		c0,2.762,2.239,5,5,5c2.761,0,5-2.238,5-5v-16.259c0-8.226,6.692-14.918,14.917-14.918h103.491c8.225,0,14.917,6.692,14.917,14.918
+		v103.491c0,8.226-6.692,14.917-14.917,14.917H24.917c-8.226,0-14.917-6.691-14.917-14.917v-64.232c0-2.762-2.239-5-5-5
+		c-2.761,0-5,2.238-5,5v64.232c0,13.739,11.178,24.917,24.917,24.917h103.491c13.74,0,24.917-11.178,24.917-24.917v-72.242h72.245
+		c13.741,0,24.92-11.18,24.92-24.921v-19.736c0-2.762-2.239-5-5-5s-5,2.238-5,5v19.736c0,8.228-6.693,14.921-14.92,14.921h-72.245
+		v-21.249c0-13.74-11.178-24.918-24.917-24.918h-21.248V24.921c0-8.227,6.693-14.92,14.92-14.92h103.49
+		c8.227,0,14.92,6.693,14.92,14.92v49.753c0,2.762,2.239,5,5,5s5-2.238,5-5V24.921C250.491,11.179,239.311,0.001,225.571,0.001z"/>
+	<circle cx="41.496" cy="136.527" r="9.749"/>
+	<circle cx="41.496" cy="173.577" r="9.749"/>
+	<circle cx="41.496" cy="210.627" r="9.749"/>
+	<circle cx="111.996" cy="136.527" r="9.749"/>
+	<circle cx="111.996" cy="173.577" r="9.749"/>
+	<circle cx="111.996" cy="210.627" r="9.749"/>
+	<circle cx="173.826" cy="76.665" r="9.749"/>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>

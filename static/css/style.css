@@ -301,7 +301,7 @@ box-shadow: 0 3px rgb(33,147,90) inset;
     height: 200px;
     background: #9c0599;
     margin-left: 25px;
-    margin-top: 125px;
+    margin-top: 80px;
     border-radius: 10px;
 }
 
@@ -410,4 +410,24 @@ button:focus {
 	border: 10px solid transparent;
 	border-top: 20px solid #425DD8;
 	filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+}
+
+.ddd {
+    position: relative;
+    margin-left: 670px;
+}
+
+.dice-control {
+    position: relative;
+    margin-left: -660px;
+}
+
+.Cant-to-play-without-register {
+    margin: 0 auto;
+    line-height: 620px;
+	-webkit-text-stroke: 1px white;
+    font-family: fantasy;
+    color:rgb(64,199,129);
+    font-size:35px;
+    text-decoration: none;
 }

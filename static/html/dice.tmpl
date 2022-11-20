@@ -3,10 +3,16 @@
 {{define "title"}}Dice Game{{end}}
 
 {{define "content"}}
+
+{{if not .LoginFlagAccept}}<div class="Cant-to-play-without-register">Sign In or Sign Up to Start Game</div>{{end}}
+
+{{if .LoginFlagAccept}}
+<div class="ddd">
 <div class="shadow"></div>
 	<div class="random">
 		<div class="result"></div>
 		<div class="cards">
+			<div>0</div>
 			<div>1</div>
 			<div>2</div>
 			<div>3</div>
@@ -16,13 +22,13 @@
 			<div>7</div>
 			<div>8</div>
 			<div>9</div>
-			<div>10</div>
-			<div>11</div>
 		</div>
 	</div>
 	<button class="start" onclick="start()">START</button>
     <script src="/static/js/dice.js"></script>
+</div>
 
+<div class="dice-control">
 <form>
 <table class="DiceGame">
 <tr>
@@ -81,4 +87,7 @@
 
 </table>
 </form>
+</div>
+{{end}}
+
 {{end}}
