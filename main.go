@@ -48,4 +48,6 @@ func routes(r *httprouter.Router, DB *sql.DB) {
 	r.GET("/dice", controller.DicePage)
 	r.GET("/crash", controller.DicePage)
 	r.GET("/jackpot", controller.DicePage)
+
+	r.POST("/dice", controller.GetDiceData)
 }
