@@ -51,7 +51,8 @@ func (s *DataBase) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 		confirm_password := r.FormValue("confirm_password")
 		email := r.FormValue("email")
 		role := "user"
-		conditionsMap["balance"] = 0.0
+		var bal string
+		conditionsMap["balance"] = bal
 
 		conditionsMap["EmailUsernameError"] = false
 

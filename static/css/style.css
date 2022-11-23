@@ -225,10 +225,6 @@ box-shadow: 0 3px rgb(33,147,90) inset;
     background-image: url(../pictures/dc.jpg);
 }
 
-#BetAmount, #Range, #Multiply, #WinChance, #Profit {
-    width: 100px;
-}
-
 .DiceElements {
     background: #444;
     color: white;
@@ -327,94 +323,9 @@ button:focus {
 	outline: none;
 }
 
-.start {
-	position: absolute;
-	top: calc(20% + 100px);
-	left: 54%;
-	background: #51D05E;
-	transform: translate(-50%, -50%);
-	width: 100px;
-	height: 25px;
-	border: 2px solid #4CBD58;
-	color: white;
-	font-weight: bold;
-	border-radius: 5px;
-	transition: 0.3s ease;
-	user-select: none;
-	cursor: pointer;
-	filter: drop-shadow(2px 2px 2px rgba(89, 217, 102, 0.2));
-}
-
-.start:hover {
-	background: #4CBD58;
-}
-
-.shadow {
-	position: absolute;
-	z-index: 2;
-	left: 54%;
-	top: 20%;
-	transform: translate(-50%, -50%);
-	border-radius: 10px;
-	border: 2px solid white;
-	width: 400px;
-	height: 100px;
-	box-shadow: inset 0px 0px 20px 0px black;
-}
-
-.random {
-	position: absolute;
-	overflow: hidden;
-	left: 54%;
-	top: 20%;
-	transform: translate(-50%, -50%);
-	border-radius: 10px;
-	width: 400px;
-	height: 100px;
-	background: #161D31;
-}
-
-.cards {
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 2000px;
-	height: 100%;
-	transition: 5s ease;
-}
-
-.cards > div {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	float: left;
-	font-family: sans-serif;
-	font-weight: bold;
-	font-size: 20px;
-	margin-top: 5px;
-	margin-left: 5px;
-	width: 100px;
-	height: 90px;
-	color: #6A6A6A;
-	background: white;
-	border-radius: 10px;
-}
-
-.result {
-	position: absolute;
-	z-index: 10;
-	left: 50%;
-	top: 0;
-	transform: translateX(-50%);
-	border: 10px solid transparent;
-	border-top: 20px solid #425DD8;
-	filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
-}
-
 .ddd {
     position: relative;
-    margin-left: 670px;
+    margin-left: 630px;
 }
 
 .dice-control {
@@ -431,3 +342,73 @@ button:focus {
     font-size:35px;
     text-decoration: none;
 }
+
+#resultDice {
+    margin: 0 auto;
+    color: white;
+    margin-left: 50px;
+    font-size: 130px;
+}
+
+.DiceRoll {
+    margin: 0 auto;
+}
+
+.roll {
+    width: 400px;
+    height: 150px;
+    margin: 0 auto;
+}
+
+.DiceSettings {
+    width: 700px;
+    height: 390px;
+    background: linear-gradient(to top, black, cyan);
+    border-radius: 40px;
+}
+
+.settings {
+    margin: 0 auto;
+}
+
+.settings td {
+    text-align: center;
+    height: 180px;
+    width: 100px;
+}
+
+label {
+    color: white;
+}
+
+#Range, #Multiply, #BetAmount, #Profit, #WinChance {
+    font-family: 'Montserrat';
+    font-size: 20px;
+    width: 200px;
+    padding-left: 10px;
+    background: linear-gradient(135deg, #e55d87 0%, #5fc3e4 100%);
+    box-shadow: 0 0 20px rgba(99, 2, 94, 0.548);
+    border: 2px solid #30012faf;
+    color: white;
+    border-radius: 5px;
+    outline: none;
+}
+
+.start {
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+    padding: 20px 30px;
+    margin: 10px 20px;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-image: linear-gradient(to right, #9EEFE1 0%, #3ab9e4 51%, #9EEFE1 100%);
+    background-size: 200% auto;
+    box-shadow: 0 0 20px rgba(99, 2, 94, 0.548);
+    transition: .5s;
+  }
+  .start:hover {
+    background-position: right center;
+  }
