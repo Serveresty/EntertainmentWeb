@@ -51,8 +51,8 @@ func (s *DataBase) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 		confirm_password := r.FormValue("confirm_password")
 		email := r.FormValue("email")
 		role := "user"
-		var bal string
-		conditionsMap["balance"] = bal
+
+		conditionsMap["balance"] = 0.0
 
 		conditionsMap["EmailUsernameError"] = false
 
@@ -68,11 +68,11 @@ func (s *DataBase) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 
 			//Переменная с кодом MySql
 			perem := `
-			INSERT INTO users_account (username, email, password, role) VALUES(?, ?, ?, ?)
+			INSERT INTO users_account (username, email, password, role, balance) VALUES(?, ?, ?, ?, ?)
 		`
 
 			//Добавляю в БД запись о регистрации, если нет ошибок
-			insert, errdb := s.Data.Query(perem, username, email, hash_password, role)
+			insert, errdb := s.Data.Query(perem, username, email, hash_password, role, 0)
 			defer func() {
 				if insert != nil {
 					insert.Close()
@@ -91,6 +91,7 @@ func (s *DataBase) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 
 			conditionsMap["LoginError"] = false
 			conditionsMap["username"] = username
+			conditionsMap["email"] = email
 
 			session, _ := loggedUserSession.New(r, "authenticated-user-session")
 			session.Values["username"] = username

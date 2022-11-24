@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	DB, errdb := sql.Open("mysql", "root:Abegah54@tcp(127.0.0.1:3306)/users_data")
+	DB, errdb := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/users_data")
 	if errdb != nil {
 		panic(errdb)
 	}

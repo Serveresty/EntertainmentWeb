@@ -381,7 +381,7 @@ label {
     color: white;
 }
 
-#Range, #Multiply, #BetAmount, #Profit, #WinChance {
+#Range, #Multiply, #BetAmount, #WinChance, #Profit {
     font-family: 'Montserrat';
     font-size: 20px;
     width: 200px;
@@ -416,3 +416,49 @@ label {
   #wrg-rng, #wrg-mtp, #wrg-wch, #NoMoney {
     color: red;
   }
+
+  .deposit {
+    margin: 0 auto;
+    margin-top: 100px;
+  }
+
+  .deposit td {
+    height: 50px;
+  }
+
+  #deposit {
+    width: 315px;
+    margin-right: 10px;
+    border-radius: 6px;
+  }
+
+.form_radio_btn {
+	display: inline-block;
+	margin-right: 10px;
+    width: 150px;
+    height: 150px;
+    background-image: url(/static/pictures/deposit1.svg);
+}
+.form_radio_btn input[type=radio] {
+	display: none;
+}
+.form_radio_btn label {
+	display: inline-block;
+    width: 150px;
+    height: 150px;
+	cursor: pointer;
+	padding: 0px 15px;
+	line-height: 34px;
+	border-radius: 6px;
+	user-select: none;
+}
+ 
+/* Checked */
+.form_radio_btn input[type=radio]:checked + label {
+    border: 1px solid red;
+}
+ 
+/* Hover */
+.form_radio_btn label:hover {
+	color: rgb(6, 241, 84);
+}
