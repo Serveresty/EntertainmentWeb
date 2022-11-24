@@ -34,7 +34,9 @@ function start() {
           console.log(result)
 
           if (result['NotEnoughMoney'] == true) {
-            alert("Not Enough Money");
+            document.getElementById("NoMoney").innerHTML = "No Money";
+          } else {
+            document.getElementById("NoMoney").innerHTML = "";
           }
 
           if (result['OutOfRange'] == true) {
@@ -69,3 +71,52 @@ function start() {
   });
 }
 
+function RangeEdit(range) {
+  var wrg_rng = document.getElementById("wrg-rng");
+
+  if (range.toString().length > 5){
+    range = parseFloat(range.toString().substring(0, 5));
+  }
+  if (range > 94 || range < 0.01) {
+    wrg_rng.innerHTML = "Wrong Range";
+    return;
+  } else {
+    wrg_rng.innerHTML = " ";
+  }
+  var winchance = document.getElementById("WinChance");
+  winchance.value = range;
+}
+
+function MultiplyEdit(multy) {
+  var wrg_mtp = document.getElementById("wrg-mtp");
+  if (multy > 9500 || multy < 1.0106) {
+    wrg_mtp.innerHTML = "Wrong Multiply";
+    return;
+  } else {
+    wrg_mtp.innerHTML = "";
+  }
+
+  var bet = document.getElementById("BetAmount").value;
+  document.getElementById("Profit").value = bet * multy - bet;
+}
+
+function WinChanceEdit(win) {
+  var wrg_wch = document.getElementById("wrg-wch");
+
+  if (win.toString().length > 5){
+    win = parseFloat(win.toString().substring(0, 5));
+  }
+  if (win > 94 || win < 0.01) {
+    wrg_wch.innerHTML = "Wrong Chance";
+    return;
+  } else {
+    wrg_wch.innerHTML = " ";
+  }
+  var range = document.getElementById("Range");
+  range.value = win;
+}
+
+function BetEdit(bet) {
+  var multy = document.getElementById("Multiply").value;
+  document.getElementById("Profit").value = bet * multy - bet;
+}

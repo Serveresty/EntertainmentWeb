@@ -412,3 +412,7 @@ label {
   .start:hover {
     background-position: right center;
   }
+
+  #wrg-rng, #wrg-mtp, #wrg-wch, #NoMoney {
+    color: red;
+  }
