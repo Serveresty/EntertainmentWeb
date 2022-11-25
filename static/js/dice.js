@@ -85,6 +85,12 @@ function RangeEdit(range) {
   }
   var winchance = document.getElementById("WinChance");
   winchance.value = range;
+  var mult = document.getElementById("Multiply");
+  mult.value = 95 / range;
+  mult.value = parseFloat(mult.value).toFixed(4);
+  var multy = document.getElementById("Multiply").value;
+  var bet = document.getElementById("BetAmount").value;
+  document.getElementById("Profit").value = bet * multy - bet;
 }
 
 function MultiplyEdit(multy) {
@@ -98,6 +104,12 @@ function MultiplyEdit(multy) {
 
   var bet = document.getElementById("BetAmount").value;
   document.getElementById("Profit").value = bet * multy - bet;
+  var rng = document.getElementById("Range");
+  var wch = document.getElementById("WinChance");
+  rng.value = 95 / multy;
+  rng.value = parseFloat(rng.value).toFixed(4);
+  wch.value = 95 / multy;
+  wch.value = parseFloat(wch.value).toFixed(4);
 }
 
 function WinChanceEdit(win) {
@@ -114,6 +126,12 @@ function WinChanceEdit(win) {
   }
   var range = document.getElementById("Range");
   range.value = win;
+  var mult = document.getElementById("Multiply");
+  mult.value = 95 / win;
+  mult.value = parseFloat(mult.value).toFixed(4);
+  var multy = document.getElementById("Multiply").value;
+  var bet = document.getElementById("BetAmount").value;
+  document.getElementById("Profit").value = bet * multy - bet;
 }
 
 function BetEdit(bet) {
