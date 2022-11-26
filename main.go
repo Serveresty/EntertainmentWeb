@@ -50,4 +50,5 @@ func routes(r *httprouter.Router, DB *sql.DB) {
 	r.GET("/jackpot", controller.DicePage)
 
 	r.POST("/dice", handler.GetDiceData)
+	r.POST("/profile", handler.Deposit)
 }

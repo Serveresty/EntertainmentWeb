@@ -64,13 +64,7 @@ func (s *DataBase) GetDiceData(rw http.ResponseWriter, r *http.Request, p httpro
 
 	//Проверка диапазона умножения
 	if k, _ := strconv.ParseFloat(data.Multiply, 64); k <= 9500 && k >= 1.0106 {
-		rng, _ := strconv.ParseFloat(data.Range, 64)
-		wch, _ := strconv.ParseFloat(data.WinChance, 64)
-		if k == 95/rng && k == 95/wch {
-			send_data.Multiply = data.Multiply
-		} else {
-			send_data.OutOfMultiply = true
-		}
+		send_data.Multiply = data.Multiply
 	} else {
 		send_data.OutOfMultiply = true
 	}
@@ -156,7 +150,5 @@ func (s *DataBase) transactionDice(n string, rng string, pt string, bt string, b
 	}()
 	if errdb2 != nil {
 	}
-
-	fmt.Println(conditionsMap["balance"])
 	return conditionsMap
 }
