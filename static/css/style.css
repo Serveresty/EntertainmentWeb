@@ -150,7 +150,7 @@ html, body {
 	padding: 15px;
 }
 
-.message-input {
+#input {
 	width: 220px;
 	height: 30px;
 }
@@ -242,7 +242,7 @@ box-shadow: 0 3px rgb(33,147,90) inset;
     border-radius: 10px;
 }
 
-.balance {
+#balance {
     -webkit-text-stroke: 1px white;
     font-family: fantasy;
     color:rgb(64,199,129);

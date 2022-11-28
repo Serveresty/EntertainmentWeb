@@ -14,7 +14,7 @@
 				<tr>
 					<td><a class="logo" href="/">Knight Casino</a></td>
 					{{if not .LoginFlagAccept}}<td align="right" style="width: 25%"><a class="buttonLog" href="/main-sign">Sign In/Sign Up</a></td>{{end}}
-                    {{if .LoginFlagAccept}}<td align="right"><span class="balance">{{ .balance }} $</span></td><td align="right" style="width: 15%"> <a class="buttonLog" href="/profile">My profile</a>   <a class="buttonLog" href="/logout">Exit</a></td>
+                    {{if .LoginFlagAccept}}<td align="right"><span id="balance">{{ .balance }} $</span></td><td align="right" style="width: 15%"> <a class="buttonLog" href="/profile">My profile</a>   <a class="buttonLog" href="/logout">Exit</a></td>
                     {{end}}
 				</tr>
 			</table>
@@ -27,9 +27,9 @@
             <aside class="sidebar sidebar1">
 				<div class="msg"></div>
 				<div class="snd-msg">
-					<input class="message-input" name="message" type="text" placeholder="Enter Message">
+					<input id="input" name="message" type="text" placeholder="Enter Message">
 					<p>
-					<button class="button-input">Send Message</button>
+                    <button class="button-input">Send</button>
 				</div>
             </aside>
             <aside class="sidebar sidebar2">

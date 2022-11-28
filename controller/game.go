@@ -24,6 +24,7 @@ type DiceData struct {
 	OutOfRange       bool
 	OutOfMultiply    bool
 	UnknownWinChance bool
+	Balance          string
 }
 
 type SendDiceData struct {
@@ -40,6 +41,7 @@ type SendDiceData struct {
 	OutOfRange       bool
 	OutOfMultiply    bool
 	UnknownWinChance bool
+	Balance          string
 }
 
 func (s *DataBase) GetDiceData(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -95,6 +97,7 @@ func (s *DataBase) GetDiceData(rw http.ResponseWriter, r *http.Request, p httpro
 		send_data.Number4 = rand.Intn(9 + 1)
 		num := fmt.Sprintf("%d%d.%d%d", send_data.Number1, send_data.Number2, send_data.Number3, send_data.Number4)
 		s.transactionDice(num, send_data.Range, send_data.Profit, send_data.BetAmount, n)
+		send_data.Balance = conditionsMap["balance"].(string)
 	} else {
 		send_data.Number1 = 0
 		send_data.Number2 = 0

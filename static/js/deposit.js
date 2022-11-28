@@ -1,8 +1,10 @@
 function deposit() {
     var money = document.getElementById("deposit").value;
+    var bal =  document.getElementById("balance");
 
     let data = {
         Money: money,
+        Balance: bal.textContent,
     };
     fetch("/profile", {
         headers: {
@@ -16,6 +18,7 @@ function deposit() {
             let result = JSON.parse(data);
             console.log(result)
             document.getElementById("resDep").textContent = "Deposit success, +" + result['Money'] + "$";
+            bal.textContent = result['Balance'] + " $";
         });
     }).catch((error) => {
         console.log(error)

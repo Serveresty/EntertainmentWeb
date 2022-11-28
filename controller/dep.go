@@ -10,11 +10,13 @@ import (
 )
 
 type HowMuchMoney struct {
-	Money string
+	Money   string
+	Balance string
 }
 
 type Result struct {
-	Money string
+	Money   string
+	Balance string
 }
 
 func (s *DataBase) Deposit(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
@@ -57,6 +59,8 @@ func (s *DataBase) Deposit(rw http.ResponseWriter, r *http.Request, p httprouter
 	}()
 	if errdb2 != nil {
 	}
+
+	send_data.Balance = conditionsMap["balance"].(string)
 	rw.Header().Set("Content-Type", "application/json")
 	_ = json.NewEncoder(rw).Encode(send_data)
 	return

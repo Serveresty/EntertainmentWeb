@@ -4,6 +4,7 @@ function start() {
   var multiply = document.getElementById("Multiply");
   var winchance = document.getElementById("WinChance");
   var profit = document.getElementById("Profit");
+  var bal =  document.getElementById("balance");
 
   let data = {
     BetAmount: betamount.value,
@@ -19,6 +20,7 @@ function start() {
     OutOfRange: false,
     OutOfMultiply: false,
     UnknownWinChance: false,
+    Balance: bal.textContent,
   };
 
   fetch("/dice", {
@@ -65,6 +67,7 @@ function start() {
           roller = document.getElementById("resultDice");
 
           roller.textContent = num1.toString() + num2.toString() + num3.toString() + num4.toString();
+          bal.textContent = result['Balance'] + " $";
       });
   }).catch((error) => {
       console.log(error)
