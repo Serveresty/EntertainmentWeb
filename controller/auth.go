@@ -2,7 +2,6 @@ package controller
 
 import (
 	"database/sql"
-	"log"
 	"net/http"
 	"strings"
 
@@ -23,26 +22,18 @@ type DataBase struct {
 	Data *sql.DB
 }
 
-func init() {
-
-	loggedUserSession.Options = &sessions.Options{
-		// change domain to match your machine. Can be localhost
-		// IF the Domain name doesn't match, your session will be EMPTY!
-		Domain:   "localhost",
-		Path:     "/",
-		MaxAge:   3600 * 3, // 3 hours
-		HttpOnly: true,
-	}
+type Client struct {
+	id       string
+	username string
+	email    string
+	role     string
+	balance  string
 }
+
+var current_client Client
 
 func (s *DataBase) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	conditionsMap = map[string]any{}
-
-	session, _ := loggedUserSession.Get(r, "authenticated-user-session")
-
-	if session != nil {
-		conditionsMap["username"] = session.Values["username"]
-	}
 
 	//Беру данные при регистрации
 	if r.FormValue("email") != "" && r.FormValue("username") != "" && r.FormValue("password") != "" && r.FormValue("confirm_password") != "" {
@@ -51,8 +42,6 @@ func (s *DataBase) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 		confirm_password := r.FormValue("confirm_password")
 		email := r.FormValue("email")
 		role := "user"
-
-		conditionsMap["balance"] = 0.0
 
 		conditionsMap["EmailUsernameError"] = false
 
@@ -72,7 +61,7 @@ func (s *DataBase) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 		`
 
 			//Добавляю в БД запись о регистрации, если нет ошибок
-			insert, errdb := s.Data.Query(perem, username, email, hash_password, role, 0)
+			insert, errdb := s.Data.Query(perem, username, email, hash_password, role, 0.00)
 			defer func() {
 				if insert != nil {
 					insert.Close()
@@ -90,18 +79,8 @@ func (s *DataBase) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 			}
 
 			conditionsMap["LoginError"] = false
-			conditionsMap["username"] = username
-			conditionsMap["email"] = email
-
-			session, _ := loggedUserSession.New(r, "authenticated-user-session")
-			session.Values["username"] = username
-			err := session.Save(r, rw)
-			if err != nil {
-				rw.Write([]byte("GWWWW"))
-			}
-
 			conditionsMap["LoginFlagAccept"] = true
-			http.Redirect(rw, r, "/", http.StatusFound)
+			http.Redirect(rw, r, "/main-sign", http.StatusFound)
 		}
 	}
 }
@@ -109,26 +88,20 @@ func (s *DataBase) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 func (s *DataBase) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	conditionsMap = map[string]any{}
 
-	session, _ := loggedUserSession.Get(r, "authenticated-user-session")
-
-	if session != nil {
-		conditionsMap["username"] = session.Values["username"]
-	}
-
 	username := r.FormValue("username")
 	password := r.FormValue("password")
 
 	conditionsMap["AccessError"] = false
 	conditionsMap["WrongPassword"] = false
 
-	row := s.Data.QueryRow(`SELECT password FROM users_account WHERE username = ?`, username)
+	row := s.Data.QueryRow(`SELECT id, email, role, balance, password FROM users_account WHERE username = ?`, username)
 	if row.Err() != nil {
 		rw.Write([]byte("first"))
 		rw.Write([]byte(row.Err().Error()))
 		return
 	}
-	var result string
-	if err := row.Scan(&result); err != nil {
+	var userID, hash, email, role, balance string
+	if err := row.Scan(&userID, &email, &role, &balance, &hash); err != nil {
 		if err == sql.ErrNoRows {
 			conditionsMap["AccessError"] = true
 			conditionsMap["LoginFlagAccept"] = false
@@ -139,7 +112,7 @@ func (s *DataBase) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.
 		return
 	}
 
-	if err := bcrypt.CompareHashAndPassword([]byte(result), []byte(password)); err != nil {
+	if err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password)); err != nil {
 		if err == bcrypt.ErrMismatchedHashAndPassword {
 			conditionsMap["WrongPassword"] = true
 			conditionsMap["LoginFlagAccept"] = false
@@ -148,57 +121,18 @@ func (s *DataBase) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.
 		}
 		rw.Write([]byte(err.Error()))
 		return
+	} else {
+		session, _ := loggedUserSession.Get(r, "authenticated-user-session")
+		session.Values["userID"] = userID
+		current_client.id = userID
+		current_client.username = username
+		current_client.email = email
+		current_client.role = role
+		current_client.balance = balance
+		session.Save(r, rw)
 	}
 
 	conditionsMap["LoginError"] = false
-	conditionsMap["username"] = username
-
-	session, _ = loggedUserSession.New(r, "authenticated-user-session")
-	session.Values["username"] = username
-	err := session.Save(r, rw)
-	if err != nil {
-		rw.Write([]byte("GWWWW"))
-	}
-
-	var bal string
-	balance := s.Data.QueryRow(`SELECT balance FROM users_account WHERE username = ?`, username)
-	if balance.Err() != nil {
-		rw.Write([]byte("first_balance"))
-		rw.Write([]byte(balance.Err().Error()))
-		return
-	}
-
-	if err := balance.Scan(&bal); err != nil {
-		if err == sql.ErrNoRows {
-			rw.Write([]byte("EEEEEEEE"))
-			http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
-			return
-		}
-		rw.Write([]byte(err.Error()))
-		return
-	}
-
-	var emaill string
-	em := s.Data.QueryRow(`SELECT email FROM users_account WHERE username = ?`, username)
-	if em.Err() != nil {
-		rw.Write([]byte("first_email"))
-		rw.Write([]byte(em.Err().Error()))
-		return
-	}
-
-	if err := em.Scan(&emaill); err != nil {
-		if err == sql.ErrNoRows {
-			rw.Write([]byte("EEEEEEEE"))
-			http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
-			return
-		}
-		rw.Write([]byte(err.Error()))
-		return
-	}
-
-	conditionsMap["email"] = emaill
-	conditionsMap["balance"] = bal
-
 	conditionsMap["LoginFlagAccept"] = true
 	http.Redirect(rw, r, "/", http.StatusFound)
 }
@@ -208,18 +142,21 @@ func HashPassword(password string) (string, error) {
 	return string(bytes), err
 }
 
-func LogoutHandler(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	//read from session
+func (s *DataBase) LogoutHandler(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	delete_cookie := `DELETE FROM sessions WHERE session_id=?`
+	c, _ := r.Cookie("authenticated-user-session")
+	value_cookie := c.Value
+
+	insert, errdb := s.Data.Query(delete_cookie, value_cookie)
+	defer func() {
+		if insert != nil {
+		}
+	}()
+	if errdb != nil {
+	}
+	current_client = Client{}
 	session, _ := loggedUserSession.Get(r, "authenticated-user-session")
-	for k := range conditionsMap {
-		delete(conditionsMap, k)
-	}
-
-	err := session.Save(r, rw)
-
-	if err != nil {
-		log.Println(err)
-	}
-	session = nil
-	http.Redirect(rw, r, "/", http.StatusFound)
+	delete(session.Values, "userID")
+	session.Save(r, rw)
+	http.Redirect(rw, r, "/main-sign", http.StatusFound)
 }
