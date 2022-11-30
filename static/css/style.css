@@ -104,7 +104,7 @@ html, body {
     order: 2;
 }
 
-.Roulette-btn, .Dice-btn, .Crash-btn, .Mines-btn {
+.Roulette-btn, .Dice-btn, .Crash-btn, .Jackpot-btn {
 	width: 550px;
 	height: 250px;
 	margin: 40px;
@@ -125,13 +125,13 @@ html, body {
 	background-image: url(../pictures/crashbtn.jpg);
 }
 
-.Mines-btn {
+.Jackpot-btn {
 	background-image: url(../pictures/jackpotbtn.jpg);
 }
 
 
 
-.header, .sidebar, .content, .footer, .button-games, .msg, .snd-msg, .Roulette-btn, .Dice-btn, .Crash-btn, .Mines-btn {
+.header, .sidebar, .content, .footer, .button-games, .msg, .snd-msg, .Roulette-btn, .Dice-btn, .Crash-btn, .Jackpot-btn {
 	border-radius: 10px;
 }
 
