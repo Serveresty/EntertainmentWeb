@@ -57,13 +57,9 @@ func routes(r *httprouter.Router, DB *sql.DB) {
 	//
 
 	r.GET("/", handler.HomePage)
-	r.GET("/newpage", controller.SecondPage)
 	r.GET("/logout", handler.LogoutHandler)
-	r.GET("/profile", controller.ProfilePage)
-	r.GET("/roulette", controller.RoulettePage)
-	r.GET("/dice", controller.DicePage)
-	r.GET("/crash", controller.DicePage)
-	r.GET("/jackpot", controller.DicePage)
+	r.GET("/profile", handler.ProfilePage)
+	r.GET("/dice", handler.DicePage)
 
 	r.POST("/dice", handler.GetDiceData)
 	r.POST("/profile", handler.Deposit)

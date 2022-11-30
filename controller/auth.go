@@ -14,26 +14,12 @@ import (
 var encryptionKey = "something-very-secret"
 var loggedUserSession = sessions.NewCookieStore([]byte(encryptionKey))
 
-type any interface{}
-
-var conditionsMap map[string]any
-
 type DataBase struct {
 	Data *sql.DB
 }
 
-type Client struct {
-	id       string
-	username string
-	email    string
-	role     string
-	balance  string
-}
-
-var current_client Client
-
 func (s *DataBase) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	conditionsMap = map[string]any{}
+	conditionsMap := map[string]any{}
 
 	//Беру данные при регистрации
 	if r.FormValue("email") != "" && r.FormValue("username") != "" && r.FormValue("password") != "" && r.FormValue("confirm_password") != "" {
@@ -86,7 +72,7 @@ func (s *DataBase) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 }
 
 func (s *DataBase) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	conditionsMap = map[string]any{}
+	conditionsMap := map[string]any{}
 
 	username := r.FormValue("username")
 	password := r.FormValue("password")
@@ -124,11 +110,6 @@ func (s *DataBase) SignIn(rw http.ResponseWriter, r *http.Request, p httprouter.
 	} else {
 		session, _ := loggedUserSession.Get(r, "authenticated-user-session")
 		session.Values["userID"] = userID
-		current_client.id = userID
-		current_client.username = username
-		current_client.email = email
-		current_client.role = role
-		current_client.balance = balance
 		session.Save(r, rw)
 	}
 
@@ -143,18 +124,6 @@ func HashPassword(password string) (string, error) {
 }
 
 func (s *DataBase) LogoutHandler(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	delete_cookie := `DELETE FROM sessions WHERE session_id=?`
-	c, _ := r.Cookie("authenticated-user-session")
-	value_cookie := c.Value
-
-	insert, errdb := s.Data.Query(delete_cookie, value_cookie)
-	defer func() {
-		if insert != nil {
-		}
-	}()
-	if errdb != nil {
-	}
-	current_client = Client{}
 	session, _ := loggedUserSession.Get(r, "authenticated-user-session")
 	delete(session.Values, "userID")
 	session.Save(r, rw)

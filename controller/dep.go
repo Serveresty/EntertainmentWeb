@@ -20,6 +20,7 @@ type Result struct {
 }
 
 func (s *DataBase) Deposit(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	conditionsMap := map[string]any{}
 	var data HowMuchMoney
 	err := json.NewDecoder(r.Body).Decode(&data)
 	if err != nil {
@@ -29,13 +30,16 @@ func (s *DataBase) Deposit(rw http.ResponseWriter, r *http.Request, p httprouter
 
 	var send_data Result
 	send_data.Money = data.Money
-
+	user, status := s.GetUser(rw, r)
+	_ = status
+	conditionsMap["balance"] = user.balance
+	uID := user.id
 	perem := `
 			INSERT INTO transactions (user_id, type, stat, summ) VALUES(?, ?, ?, ?)
 		`
 
 	//Добавляю в БД запись о регистрации, если нет ошибок
-	insert, errdb := s.Data.Query(perem, conditionsMap["username"], "Deposit", "Accept", send_data.Money)
+	insert, errdb := s.Data.Query(perem, uID, "Deposit", "Accept", send_data.Money)
 	defer func() {
 		if insert != nil {
 		}
@@ -49,10 +53,10 @@ func (s *DataBase) Deposit(rw http.ResponseWriter, r *http.Request, p httprouter
 	conditionsMap["balance"] = fmt.Sprint(n + dep)
 
 	perem2 := `
-			UPDATE users_account SET balance = ? WHERE username = ?;
+			UPDATE users_account SET balance = ? WHERE id = ?;
 		`
 
-	insert2, errdb2 := s.Data.Query(perem2, conditionsMap["balance"], conditionsMap["username"])
+	insert2, errdb2 := s.Data.Query(perem2, conditionsMap["balance"], uID)
 	defer func() {
 		if insert2 != nil {
 		}

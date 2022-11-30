@@ -45,6 +45,7 @@ type SendDiceData struct {
 }
 
 func (s *DataBase) GetDiceData(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	conditionsMap := map[string]any{}
 	var data DiceData
 	err := json.NewDecoder(r.Body).Decode(&data)
 	if err != nil {
@@ -53,6 +54,11 @@ func (s *DataBase) GetDiceData(rw http.ResponseWriter, r *http.Request, p httpro
 	}
 
 	var send_data SendDiceData
+	user, status := s.GetUser(rw, r)
+	_ = status
+	conditionsMap["balance"] = user.balance
+	usern := user.username
+	uID := user.id
 
 	bal := conditionsMap["balance"].(string)
 	n, _ := strconv.ParseFloat(bal, 64)
@@ -96,8 +102,8 @@ func (s *DataBase) GetDiceData(rw http.ResponseWriter, r *http.Request, p httpro
 		send_data.Number3 = rand.Intn(9 + 1)
 		send_data.Number4 = rand.Intn(9 + 1)
 		num := fmt.Sprintf("%d%d.%d%d", send_data.Number1, send_data.Number2, send_data.Number3, send_data.Number4)
-		s.transactionDice(num, send_data.Range, send_data.Profit, send_data.BetAmount, n)
-		send_data.Balance = conditionsMap["balance"].(string)
+		balance := s.transactionDice(num, send_data.Range, send_data.Profit, send_data.BetAmount, n, uID, usern)
+		send_data.Balance = fmt.Sprintf("%.2f", balance)
 	} else {
 		send_data.Number1 = 0
 		send_data.Number2 = 0
@@ -109,7 +115,8 @@ func (s *DataBase) GetDiceData(rw http.ResponseWriter, r *http.Request, p httpro
 	return
 }
 
-func (s *DataBase) transactionDice(n string, rng string, pt string, bt string, bal float64) map[string]any {
+func (s *DataBase) transactionDice(n string, rng string, pt string, bt string, bal float64, idd interface{}, usrnm string) float64 {
+	conditionsMap := map[string]any{}
 	numb, _ := strconv.ParseFloat(n, 64)
 	rang, _ := strconv.ParseFloat(rng, 64)
 	prof, _ := strconv.ParseFloat(pt, 64)
@@ -131,8 +138,7 @@ func (s *DataBase) transactionDice(n string, rng string, pt string, bt string, b
 			INSERT INTO transactions (user_id, type, stat, summ) VALUES(?, ?, ?, ?)
 		`
 
-	//Добавляю в БД запись о регистрации, если нет ошибок
-	insert, errdb := s.Data.Query(perem, conditionsMap["username"], "DiceBet", status, summ)
+	insert, errdb := s.Data.Query(perem, idd, "DiceBet", status, summ)
 	defer func() {
 		if insert != nil {
 		}
@@ -146,12 +152,12 @@ func (s *DataBase) transactionDice(n string, rng string, pt string, bt string, b
 			UPDATE users_account SET balance = ? WHERE username = ?;
 		`
 
-	insert2, errdb2 := s.Data.Query(perem2, conditionsMap["balance"], conditionsMap["username"])
+	insert2, errdb2 := s.Data.Query(perem2, conditionsMap["balance"], usrnm)
 	defer func() {
 		if insert2 != nil {
 		}
 	}()
 	if errdb2 != nil {
 	}
-	return conditionsMap
+	return bal
 }

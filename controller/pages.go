@@ -1,10 +1,8 @@
 package controller
 
 import (
-	"fmt"
 	"html/template"
 	"net/http"
-	"time"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -12,7 +10,16 @@ import (
 var flag bool = false
 var files []string
 
+type Client struct {
+	id       interface{}
+	username string
+	email    string
+	role     string
+	balance  string
+}
+
 func (s *DataBase) HomePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	conditionsMap := map[string]any{}
 	c, err := r.Cookie("authenticated-user-session")
 	if err != nil {
 		http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
@@ -28,58 +35,47 @@ func (s *DataBase) HomePage(rw http.ResponseWriter, r *http.Request, p httproute
 		return
 	}
 
-	value_cookie := c.Value
-	ins_sess := `
-		INSERT INTO sessions (session_id, user_id, created_at) VALUES(?, ?, ?)
-	`
-	var datetime = time.Now()
-	dt := datetime.Format(time.RFC3339)
-
-	insert, errdb := s.Data.Query(ins_sess, value_cookie, current_client.id, dt)
-	defer func() {
-		if insert != nil {
-		}
-	}()
-	if errdb != nil {
+	//value_cookie := c.Value
+	user, status := s.GetUser(rw, r)
+	conditionsMap["username"] = user.username
+	conditionsMap["email"] = user.email
+	conditionsMap["role"] = user.role
+	conditionsMap["balance"] = user.balance
+	if status == true {
+		conditionsMap["LoginFlagAccept"] = true
+	} else {
+		conditionsMap["LoginFlagAccept"] = false
+		http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
+		return
 	}
 
 	files = []string{
 		"./static/html/home.page.tmpl",
 		"./static/html/basic.layout.tmpl",
 	}
-	fmt.Println(current_client)
 	var tpl = template.Must(template.ParseFiles(files...))
 	tpl.Execute(rw, conditionsMap)
 }
 
-func SecondPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	c, err := r.Cookie("authenticated-user-session")
-	if err != nil {
-		http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
-		return
-	}
-	if c == nil {
-		http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
-		return
-	}
+func (s *DataBase) GetUser(rw http.ResponseWriter, r *http.Request) (Client, bool) {
+	session, _ := loggedUserSession.Get(r, "authenticated-user-session")
+	userID, ok := session.Values["userID"]
+	var user Client
+	if ok {
 
-	if r.URL.Path != "/newpage" {
-		http.NotFound(rw, r)
-		return
-	}
+		row := s.Data.QueryRow(`SELECT username, email, role, balance FROM users_account WHERE id = ?`, userID)
+		var username, email, role, balance string
+		err := row.Scan(&username, &email, &role, &balance)
+		_ = err
 
-	value_cookie := c.Value
-	fmt.Println(value_cookie)
-
-	files = []string{
-		"./static/html/newpage.tmpl",
-		"./static/html/basic.layout.tmpl",
+		user = Client{id: userID, username: username, email: email, role: role, balance: balance}
+		return user, true
 	}
-	var tpl = template.Must(template.ParseFiles(files...))
-	tpl.Execute(rw, conditionsMap)
+	return user, false
 }
 
 func SignPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	conditionsMap := map[string]any{}
 	if r.URL.Path != "/main-sign" {
 		http.NotFound(rw, r)
 		return
@@ -92,7 +88,8 @@ func SignPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	tpl.Execute(rw, conditionsMap)
 }
 
-func ProfilePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func (s *DataBase) ProfilePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	conditionsMap := map[string]any{}
 	c, err := r.Cookie("authenticated-user-session")
 	if err != nil {
 		http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
@@ -108,8 +105,18 @@ func ProfilePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	value_cookie := c.Value
-	fmt.Println(value_cookie)
+	user, status := s.GetUser(rw, r)
+	conditionsMap["username"] = user.username
+	conditionsMap["email"] = user.email
+	conditionsMap["role"] = user.role
+	conditionsMap["balance"] = user.balance
+	if status == true {
+		conditionsMap["LoginFlagAccept"] = true
+	} else {
+		conditionsMap["LoginFlagAccept"] = false
+		http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
+		return
+	}
 
 	files = []string{
 		"./static/html/profile.page.tmpl",
@@ -119,34 +126,8 @@ func ProfilePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	tpl.Execute(rw, conditionsMap)
 }
 
-func RoulettePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	c, err := r.Cookie("authenticated-user-session")
-	if err != nil {
-		http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
-		return
-	}
-	if c == nil {
-		http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
-		return
-	}
-
-	if r.URL.Path != "/roulette" {
-		http.NotFound(rw, r)
-		return
-	}
-
-	value_cookie := c.Value
-	fmt.Println(value_cookie)
-
-	files = []string{
-		"./static/html/newpage.tmpl",
-		"./static/html/basic.layout.tmpl",
-	}
-	var tpl = template.Must(template.ParseFiles(files...))
-	tpl.Execute(rw, conditionsMap)
-}
-
-func DicePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+func (s *DataBase) DicePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
+	conditionsMap := map[string]any{}
 	c, err := r.Cookie("authenticated-user-session")
 	if err != nil {
 		http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
@@ -162,8 +143,18 @@ func DicePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		return
 	}
 
-	value_cookie := c.Value
-	fmt.Println(value_cookie)
+	user, status := s.GetUser(rw, r)
+	conditionsMap["username"] = user.username
+	conditionsMap["email"] = user.email
+	conditionsMap["role"] = user.role
+	conditionsMap["balance"] = user.balance
+	if status == true {
+		conditionsMap["LoginFlagAccept"] = true
+	} else {
+		conditionsMap["LoginFlagAccept"] = false
+		http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
+		return
+	}
 
 	files = []string{
 		"./static/html/dice.tmpl",
