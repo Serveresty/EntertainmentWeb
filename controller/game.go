@@ -109,6 +109,9 @@ func (s *DataBase) GetDiceData(rw http.ResponseWriter, r *http.Request, p httpro
 		send_data.Number2 = 0
 		send_data.Number3 = 0
 		send_data.Number4 = 0
+		send_data.BetAmount = data.BetAmount
+		send_data.Profit = data.Profit
+		send_data.Balance = user.balance
 	}
 	rw.Header().Set("Content-Type", "application/json")
 	_ = json.NewEncoder(rw).Encode(send_data)
@@ -123,7 +126,6 @@ func (s *DataBase) transactionDice(n string, rng string, pt string, bt string, b
 	bet, _ := strconv.ParseFloat(bt, 64)
 	var status string
 	var summ string
-
 	if rang > numb {
 		bal += prof
 		status = "win"

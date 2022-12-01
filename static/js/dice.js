@@ -138,6 +138,7 @@ function WinChanceEdit(win) {
 }
 
 function BetEdit(bet) {
+  document.getElementById("NoMoney").innerHTML = "";
   var multy = document.getElementById("Multiply").value;
   document.getElementById("Profit").value = parseFloat(bet * multy - bet).toFixed(2);
 }
