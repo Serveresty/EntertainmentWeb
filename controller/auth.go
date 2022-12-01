@@ -63,10 +63,31 @@ func (s *DataBase) SignUp(rw http.ResponseWriter, r *http.Request, p httprouter.
 				rw.Write([]byte(errdb.Error())) //Поменять
 				return
 			}
+			row := s.Data.QueryRow(`SELECT id FROM users_account WHERE username = ?`, username)
+			if row.Err() != nil {
+				rw.Write([]byte("first"))
+				rw.Write([]byte(row.Err().Error()))
+				return
+			}
+			var userID string
+			if err := row.Scan(&userID); err != nil {
+				if err == sql.ErrNoRows {
+					conditionsMap["AccessError"] = true
+					conditionsMap["LoginFlagAccept"] = false
+					http.Redirect(rw, r, "/main-sign", http.StatusSeeOther)
+					return
+				}
+				rw.Write([]byte(err.Error()))
+				return
+			}
+
+			session, _ := loggedUserSession.Get(r, "authenticated-user-session")
+			session.Values["userID"] = userID
+			session.Save(r, rw)
 
 			conditionsMap["LoginError"] = false
 			conditionsMap["LoginFlagAccept"] = true
-			http.Redirect(rw, r, "/main-sign", http.StatusFound)
+			http.Redirect(rw, r, "/", http.StatusFound)
 		}
 	}
 }
