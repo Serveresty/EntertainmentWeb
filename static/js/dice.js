@@ -87,13 +87,13 @@ function RangeEdit(range) {
     wrg_rng.innerHTML = " ";
   }
   var winchance = document.getElementById("WinChance");
-  winchance.value = range;
+  winchance.value = parseFloat(range).toFixed(2);
   var mult = document.getElementById("Multiply");
   mult.value = 95 / range;
   mult.value = parseFloat(mult.value).toFixed(4);
   var multy = document.getElementById("Multiply").value;
   var bet = document.getElementById("BetAmount").value;
-  document.getElementById("Profit").value = bet * multy - bet;
+  document.getElementById("Profit").value = parseFloat(bet * multy - bet).toFixed(2);
 }
 
 function MultiplyEdit(multy) {
@@ -106,13 +106,13 @@ function MultiplyEdit(multy) {
   }
 
   var bet = document.getElementById("BetAmount").value;
-  document.getElementById("Profit").value = bet * multy - bet;
+  document.getElementById("Profit").value = parseFloat(bet * multy - bet).toFixed(2);
   var rng = document.getElementById("Range");
   var wch = document.getElementById("WinChance");
   rng.value = 95 / multy;
-  rng.value = parseFloat(rng.value).toFixed(4);
+  rng.value = parseFloat(rng.value).toFixed(2);
   wch.value = 95 / multy;
-  wch.value = parseFloat(wch.value).toFixed(4);
+  wch.value = parseFloat(wch.value).toFixed(2);
 }
 
 function WinChanceEdit(win) {
@@ -128,16 +128,16 @@ function WinChanceEdit(win) {
     wrg_wch.innerHTML = " ";
   }
   var range = document.getElementById("Range");
-  range.value = win;
+  range.value = parseFloat(win).toFixed(2);
   var mult = document.getElementById("Multiply");
   mult.value = 95 / win;
   mult.value = parseFloat(mult.value).toFixed(4);
   var multy = document.getElementById("Multiply").value;
   var bet = document.getElementById("BetAmount").value;
-  document.getElementById("Profit").value = bet * multy - bet;
+  document.getElementById("Profit").value = parseFloat(bet * multy - bet).toFixed(2);
 }
 
 function BetEdit(bet) {
   var multy = document.getElementById("Multiply").value;
-  document.getElementById("Profit").value = bet * multy - bet;
+  document.getElementById("Profit").value = parseFloat(bet * multy - bet).toFixed(2);
 }
