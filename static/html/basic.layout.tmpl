@@ -25,27 +25,37 @@
 			{{ template "content" .}}
             </main>
             <aside class="sidebar sidebar1">
-				<div class="msg"><pre id="output"></pre></div>
+				<div class="msg"><div id="output"></div></div>
 				<div class="snd-msg">
-					<input id="input" name="message" type="text" placeholder="Enter Message">
+					<input id="input" name="message" type="text" placeholder="Enter Message" autofocus>
 					<p>
                     <button class="button-input" onclick="send()">Send</button>
                     <script>
                         var input = document.getElementById("input");
                         var output = document.getElementById("output");
                         var socket = new WebSocket("ws://localhost:8080/ws");
-
                         socket.onopen = function () {
-                            output.innerHTML += "Status: Connected\n";
+                            output.innerHTML += "<span style='margin-left: 40px; -webkit-text-stroke: 0.3px red;'>Welcome to Chat</span> <br>";
                         };
 
                         socket.onmessage = function (e) {
-                            output.innerHTML += {{.username}} + ": " + e.data + "\n";
+                            let result = JSON.parse(e.data);
+                            if (result['Role'] == "admin"){
+                                output.innerHTML += "<span style='color: red;'>" + result['Username'] + "</span>" + ": " + result['Message'] +"<br>";
+                            }
+                            if (result['Role'] == "user"){
+                                output.innerHTML += "<span style='color: blue;'>" + result['Username'] + "</span>" + ": " + result['Message'] +"<br>";
+                            }
+                            if (result['Role'] == "moder"){
+                                output.innerHTML += "<span style='color: yellow;'>" + result['Username'] + "</span>" + ": " + result['Message'] +"<br>";
+                            }
                         };
 
                         function send() {
                             socket.send(input.value);
                             input.value = "";
+                            var scrl = document.getElementsByClassName("msg");
+                            scrl.scrollTop = 99999999;
                             console.log(socket.CONNECTING)
                         }
                     </script>
@@ -53,13 +63,13 @@
             </aside>
             <aside class="sidebar sidebar2">
                 <div class="right-menu">
-					<a href="#" style="margin-left: 20px;"><img src="/static/pictures/crash_test.svg" width="80" height="80"></a>
+					<a href="#" style="padding: 0.5rem;margin-bottom: 1rem;"><img src="/static/pictures/crash_test.svg" width="80" height="80"></a>
                     <p>
-                    <a href="/dice" style="margin-left: 20px"><img src="/static/pictures/dice_test.svg" width="80" height="80"></a>
+                    <a href="/dice" style="padding: 0.5rem;margin-bottom: 1rem;"><img src="/static/pictures/dice_test.svg" width="80" height="80"></a>
                     <p>
-					<a href="#" style="margin-left: 20px"><img src="/static/pictures/roulette_test.svg" width="70" height="70"></a>
+					<a href="#" style="padding: 0.7rem;margin-bottom: 1rem;"><img src="/static/pictures/roulette_test.svg" width="70" height="70"></a>
                     <p>
-					<a href="#" style="margin-left: 20px"><img src="/static/pictures/mines_test.svg" width="80" height="80"></a>
+					<a href="#" style="padding: 0.9rem;margin-bottom: 1rem;"><img src="/static/pictures/mines_test.svg" width="80" height="80"></a>
                 </div>
             </aside>
         </div>

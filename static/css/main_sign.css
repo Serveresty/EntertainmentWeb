@@ -15,7 +15,7 @@
 }
 
 body {
-  background-image: url(/static/pictures/dark.gif);
+  background-image: url(/static/pictures/bg_test.jpg);
   background-attachment: fixed;
   font-family: "Nunito", sans-serif;
   display: flex;

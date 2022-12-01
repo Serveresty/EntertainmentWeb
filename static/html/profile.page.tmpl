@@ -10,9 +10,17 @@
                 <div class="avatar">
                 </div>
                 <div class="stats">
-                    Username: {{ .username}}<br>
-                    Email: {{ .email }} <br>
-                    Balance: {{ .balance}} $
+                    <table id="user_info">
+                    <tr>
+                    <td>Username: </td><td>{{ .username}}</td>
+                    </tr>
+                    <tr>
+                    <td>Email: </td><td> {{ .email }}</td>
+                    </tr>
+                    <tr>
+                    <td>Balance: </td><td> {{ .balance}} $</td>
+                    </tr>
+                    </table>
                 </div>
 
                 <div class="GameHistory">
@@ -41,7 +49,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input id="deposit" type="number"></input> <button onClick="deposit();">Накрутить</button><br><span id="resDep" style="color: green; font-size: 20px; padding: 25px"></span><td>
+                    <td colspan="3"><input id="deposit" type="number"></input> <button id="upcash" onClick="deposit();">Deposit</button><br><span id="resDep" style="color: green; font-size: 20px; padding: 25px"></span><td>
                     <script src="/static/js/deposit.js"></script>
                 </tr>
                 </table>

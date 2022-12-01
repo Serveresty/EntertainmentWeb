@@ -72,21 +72,21 @@ func (s *DataBase) GetDiceData(rw http.ResponseWriter, r *http.Request, p httpro
 
 	//Проверка диапазона умножения
 	if k, _ := strconv.ParseFloat(data.Multiply, 64); k <= 9500 && k >= 1.0106 {
-		send_data.Multiply = data.Multiply
+		send_data.Multiply = fmt.Sprintf("%.2f", k)
 	} else {
 		send_data.OutOfMultiply = true
 	}
 
 	//Проверка диапазона ставки
 	if k, _ := strconv.ParseFloat(data.Range, 64); k <= 94.0 && k >= 0.01 {
-		send_data.Range = data.Range
+		send_data.Range = fmt.Sprintf("%.2f", k)
 	} else {
 		send_data.OutOfRange = true
 	}
 
 	//Проверка шанса на победу
 	if k, _ := strconv.ParseFloat(data.WinChance, 64); k <= 94.0 && k >= 0.01 {
-		send_data.WinChance = data.WinChance
+		send_data.WinChance = fmt.Sprintf("%.2f", k)
 	} else {
 		send_data.UnknownWinChance = true
 	}
@@ -96,7 +96,7 @@ func (s *DataBase) GetDiceData(rw http.ResponseWriter, r *http.Request, p httpro
 		bet_am, _ := strconv.ParseFloat(send_data.BetAmount, 64)
 		mult, _ := strconv.ParseFloat(data.Multiply, 64)
 
-		send_data.Profit = fmt.Sprintf("%f", bet_am*mult-bet_am)
+		send_data.Profit = fmt.Sprintf("%.2f", bet_am*mult-bet_am)
 		send_data.Number1 = rand.Intn(9 + 1)
 		send_data.Number2 = rand.Intn(9 + 1)
 		send_data.Number3 = rand.Intn(9 + 1)

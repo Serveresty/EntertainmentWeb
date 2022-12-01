@@ -18,7 +18,7 @@ html, body {
     font-size: 14px;
     line-height: 1.4;
     color: #333;
-    background-image: url(../pictures/dark.gif);
+    background-image: url(../pictures/bg_test.jpg);
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
@@ -28,7 +28,7 @@ html, body {
 	margin-top: 5px;
 	-webkit-text-stroke: 1px white;
     font-family: fantasy;
-    color:rgb(64,199,129);
+    color: #994ffa;
     font-size:35px;
     text-decoration: none;
 }
@@ -42,27 +42,20 @@ html, body {
 }
 
 .header {
-    height: 60px;
-    background: #900000; 	
-    color: #fff;
-    -webkit-box-flex: 0;
-    -webkit-flex: none;
-    -ms-flex: none;
-    flex: none;
-	margin: 5px;
+	width: 99.5%;
+	height: 80px;
+	border: 10px solid #fffa;
+    margin: 5px;
 }
 
 .footer {
-    height: 60px;
-    background:#444;
-    color: #fff;
-    -webkit-box-flex: 0;
-    -webkit-flex: none;
-    -ms-flex: none;
-    flex: none;
-	margin: 5px;
-    font-size: 18px;
-    padding-left: 700px;
+    width: 99.5%;
+    margin: 5px;
+	height: 80px;
+	border: 10px solid #fffa;
+    padding-left: 20px;
+    color:#ffffff;
+    -webkit-text-stroke: 1px rgb(248, 118, 220);
 }
 
 .content-wrapper {
@@ -83,17 +76,16 @@ html, body {
     order: 0;
     order: 1;
 	margin: 5px;
-	background-image: url(../pictures/content.jpg);
+	border: 10px solid #fffa;
 }
 
 .sidebar {
-    background: #008080; 
     flex: 0 0 auto;
 	margin: 5px;
+    border: 10px solid #fffa;
 }
 
 .sidebar1 {
-    background: #008080; 
     width: 300px;
     order: 1;
     order: 0;
@@ -110,23 +102,33 @@ html, body {
 	margin: 40px;
     margin-left: 17%;
 	text-align: center;
-	line-height: 240px;
-}
-
-.Roulette-btn {
-	background-image: url(/static/pictures/roulettebtn.jpeg);
+	line-height: 180px;
 }
 
 .Dice-btn {
-	background-image: url(../pictures/dicebtn.jpg);
+    line-height: 180px;
+}
+
+.Roulette-btn {
+	background-image: url(/static/pictures/roulette.png);
+    background-size: 1300px;
+}
+
+.Dice-btn {
+	background-image: url(../pictures/dice.png);
+    background-size: 1300px;
+    border: 10px solid #fffa;
+    border-radius: 10px;
 }
 
 .Crash-btn {
-	background-image: url(../pictures/crashbtn.jpg);
+	background-image: url(../pictures/crash.png);
+    background-size: 1300px;
 }
 
 .Jackpot-btn {
-	background-image: url(../pictures/jackpotbtn.jpg);
+	background-image: url(../pictures/mines.png);
+    background-size: 1300px;
 }
 
 
@@ -136,27 +138,70 @@ html, body {
 }
 
 .msg {
-	margin: 25px;
-	background: white;
+	margin: 0 auto;
+    margin-top: 15px;
+    padding-left: 15px;
+    padding-top: 5px;
 	width: 250px;
-	height: 500px;
+	height: 520px;
+    color: rgb(67, 117, 255);
+    font-weight: bold;
+    margin-bottom: 1rem;
+    border: 5px solid #fffa;
+    overflow: hidden;
+    overflow: scroll;
+    overflow-x: hidden;
+    white-space: normal;
+    word-break: break-all;
+}
+
+#output {
+    white-space: normal;
+}
+
+.msg::-webkit-scrollbar {
+    background: rgb(248, 236, 253);
+    width: 8px;
+    border-radius: 0 5px;
+}
+
+.msg::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(226, 204, 253, 0.8); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
 
 .snd-msg {
-	margin: 25px;
-	background: pink;
+	margin: 0 auto;
 	width: 250px;
-	height: 100px;
+	height: 110px;
 	padding: 15px;
 }
 
 #input {
 	width: 220px;
-	height: 30px;
+	height: 40px;
+    border-radius: 10px;
+    border: 5px solid #fffa;
+    background: transparent;
+    font-size: 15px;
+    outline:none;
+    padding-left: 7px;
+}
+
+#input::-webkit-input-placeholder {
+    color:    rgb(160, 99, 160);
 }
 
 .button-input {
 	width: 220px;
+    height: 30px;
+    background: rgb(202, 117, 228);
+    border: 0;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
 }
 
 .right-menu {
@@ -189,17 +234,17 @@ a.buttonLog {
     font-weight: 700;
     color: white;
     text-decoration: none;
-    padding: .8em 1em calc(.8em + 3px);
+    padding: .6em 1em calc(.6em + 3px);
     border-radius: 3px;
-    background: rgb(64,199,129);
-    box-shadow: 0 -3px rgb(53,167,110) inset;
+    background: #994ffa;
+    box-shadow: 0 -3px #7c1afd inset;
     transition: 0.2s;
     margin-right: 10px;
   } 
-a.buttonLog:hover { background: rgb(53, 167, 110); }
+a.buttonLog:hover { background: #7c1afd; }
 a.buttonLog:active {
-background: rgb(33,147,90);
-box-shadow: 0 3px rgb(33,147,90) inset;
+background: #7c1afd;
+box-shadow: 0 3px #7c1afd inset;
 }
 
 .textdecor {
@@ -236,40 +281,50 @@ box-shadow: 0 3px rgb(33,147,90) inset;
 
 .blur {
     background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(15px); 
+    backdrop-filter: blur(10px); 
     height: 250px;
     width: 550px;
     border-radius: 10px;
+    border: 10px solid #fffa;
 }
 
 #balance {
     -webkit-text-stroke: 1px white;
     font-family: fantasy;
-    color:rgb(64,199,129);
+    color: #994ffa;
     font-size: 25px;
     text-decoration: none;
 }
 
 .profile, .cash {
-    width: 665px;
+    width: 655px;
     height: 650px;
     margin: 5px;
-    background: #333;
     border-radius: 10px;
 }
 
 .profile {
-    border-right: 5px solid red;
-    border-bottom: 5px solid red;
-    border-left: 5px solid blue;
-    border-top: 5px solid blue;
+    border-right: 5px solid rgb(156, 12, 252);
+    border-bottom: 5px solid rgb(156, 12, 252);
+    border-left: 5px solid rgb(86, 86, 247);
+    border-top: 5px solid rgb(86, 86, 247);
 }
 
 .cash {
-    border-top: 5px solid red;
-    border-right: 5px solid red;
-    border-left: 5px solid blue;
-    border-bottom: 5px solid blue;
+    border-left: 5px solid rgb(156, 12, 252);
+    border-bottom: 5px solid rgb(156, 12, 252);
+    border-top: 5px solid rgb(86, 86, 247);
+    border-right: 5px solid rgb(86, 86, 247);
+}
+
+#user_info {
+    color: #994ffa;
+    margin-left: 210px;
+    font-size: 20px;
+}
+
+#user_info td {
+    width: 140px;
 }
 
 .avatar {
@@ -285,7 +340,7 @@ box-shadow: 0 3px rgb(33,147,90) inset;
 .stats {
     -webkit-text-stroke: 1px white;
     font-family: fantasy;
-    color:rgb(64,199,129);
+    color: #994ffa;
     font-size: 25px;
     text-decoration: none;
     text-align: center;
@@ -297,7 +352,7 @@ box-shadow: 0 3px rgb(33,147,90) inset;
     height: 200px;
     background: #9c0599;
     margin-left: 25px;
-    margin-top: 80px;
+    margin-top: 110px;
     border-radius: 10px;
 }
 
@@ -346,7 +401,7 @@ button:focus {
 #resultDice {
     margin: 0 auto;
     color: white;
-    margin-left: 50px;
+    margin-left: 60px;
     font-size: 130px;
 }
 
@@ -363,7 +418,7 @@ button:focus {
 .DiceSettings {
     width: 700px;
     height: 390px;
-    background: linear-gradient(to top, black, cyan);
+    border: 10px solid #fffa;
     border-radius: 40px;
 }
 
@@ -427,16 +482,17 @@ label {
   }
 
   #deposit {
-    width: 315px;
+    width: 235px;
     margin-right: 10px;
+    margin-left: 10px;
     border-radius: 6px;
   }
 
 .form_radio_btn {
 	display: inline-block;
 	margin-right: 10px;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     background-image: url(/static/pictures/deposit1.svg);
 }
 .form_radio_btn input[type=radio] {
@@ -444,8 +500,8 @@ label {
 }
 .form_radio_btn label {
 	display: inline-block;
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
 	cursor: pointer;
 	padding: 0px 15px;
 	line-height: 34px;
@@ -455,7 +511,7 @@ label {
  
 /* Checked */
 .form_radio_btn input[type=radio]:checked + label {
-    border: 1px solid red;
+    border: 3px solid rgb(180, 36, 247);
 }
  
 /* Hover */
