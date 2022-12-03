@@ -22,37 +22,56 @@
                     </tr>
                     </table>
                 </div>
-
-                <div class="GameHistory">
-                    <div class="gm-hs">Game History</div>
-                </div>
-            </div>
-        </td>
-        <td>
-            <div class="cash">
+                <hr> </hr>
+                <h1 style="-webkit-text-stroke: 1px white; font-family: fantasy; color:rgb(64,199,129); text-decoration: none; margin-top: 45px; text-align: center;">Deposit</h1>
                 <table class="deposit">
                 <tr>
-                    <td><div class="form_radio_btn">
+                    <td><div class="form_radio_btn method1">
                             <input id="radio-1" type="radio" name="radio" value="1">
                             <label for="radio-1"></label>
                         </div></button>
                     </td>
-                    <td><div class="form_radio_btn">
+                    <td><div class="form_radio_btn method2">
                             <input id="radio-2" type="radio" name="radio" value="2">
                             <label for="radio-2"></label>
                         </div>
                     </td>
-                    <td><div class="form_radio_btn">
+                    <td><div class="form_radio_btn method3">
                             <input id="radio-3" type="radio" name="radio" value="3">
                             <label for="radio-3"></label>
                         </div>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3"><input id="deposit" type="number"></input> <button id="upcash" onClick="deposit();">Deposit</button><br><span id="resDep" style="color: green; font-size: 20px; padding: 25px"></span><td>
+                    <td colspan="3" style="padding-left: 5px;"><input id="deposit" type="number" oninput='eddt();'></input> <button id="upcash" onClick="deposit();">Deposit</button><p><span id="resDep" style="color: rgba(84, 247, 84, 0.836); font-size: 20px; padding: 25px"></span><td>
                     <script src="/static/js/deposit.js"></script>
                 </tr>
                 </table>
+            </div>
+        </td>
+        <td>
+            <div class="cash">
+                <div class="GameHistory">
+                    <div class="gm-hs">Game History</div>
+                    <div class="tble">
+                    <table class="GH">
+                        <tr>
+                            <th>Type</th>
+                            <th>Bet Amount</th>
+                            <th>Status</th>
+                            <th>Result</th>
+                        </tr>
+                        {{ range $key, $bt := .history }}
+                        <tr {{ if eq $bt.Stat "lost" }} style="background: rgba(240, 123, 123, 0.637);" {{end}} {{ if eq $bt.Stat "win" }} style="background: rgba(87, 250, 160, 0.404);" {{end}} {{ if eq $bt.Tupe "Deposit"}} style="background: rgba(93, 147, 228, 0.733);" {{end}}>
+                            <td> {{ $bt.Tupe }} </td>
+                            <td>{{ $bt.Bet_amount }} $</td>
+                            <td>{{ $bt.Stat }} </td>
+                            <td>{{ $bt.Summ }} $</td>
+                        </tr>
+                        {{ end }}
+                    </table>
+                    </div>
+                </div>
             </div>
         </td>
     </tr>

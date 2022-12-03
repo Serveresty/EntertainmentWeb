@@ -24,3 +24,7 @@ function deposit() {
         console.log(error)
     });
 }
+
+function eddt() {
+    document.getElementById("resDep").textContent = "";
+}

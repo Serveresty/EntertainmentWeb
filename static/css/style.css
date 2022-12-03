@@ -161,7 +161,7 @@ html, body {
 
 .msg::-webkit-scrollbar {
     background: rgb(248, 236, 253);
-    width: 8px;
+    width: 3px;
     border-radius: 0 5px;
 }
 
@@ -349,10 +349,11 @@ box-shadow: 0 3px #7c1afd inset;
 
 .GameHistory {
     width: 600px;
-    height: 200px;
-    background: #9c0599;
+    height: 600px;
+    background: linear-gradient(to bottom left, rgba(238, 168, 255, 0.788), rgba(93, 208, 223, 0.644));
     margin-left: 25px;
-    margin-top: 110px;
+    margin-top: 20px;
+    border: 1px solid white;
     border-radius: 10px;
 }
 
@@ -365,6 +366,7 @@ box-shadow: 0 3px #7c1afd inset;
     font-family: fantasy;
     color:rgb(64,199,129);
     font-size: 25px;
+    border: 1px solid white;
     text-decoration: none;
 }
 
@@ -474,7 +476,7 @@ label {
 
   .deposit {
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 35px;
   }
 
   .deposit td {
@@ -482,10 +484,16 @@ label {
   }
 
   #deposit {
+    font-family: 'Montserrat';
+    font-size: 20px;
     width: 235px;
-    margin-right: 10px;
-    margin-left: 10px;
-    border-radius: 6px;
+    padding-left: 10px;
+    background: linear-gradient(135deg, #e55d87 0%, #5fc3e4 100%);
+    box-shadow: 0 0 20px rgba(99, 2, 94, 0.548);
+    border: 2px solid #30012faf;
+    color: white;
+    border-radius: 5px;
+    outline: none;
   }
 
 .form_radio_btn {
@@ -493,8 +501,21 @@ label {
 	margin-right: 10px;
     width: 100px;
     height: 100px;
-    background-image: url(/static/pictures/deposit1.svg);
 }
+
+.method1 {
+    background-image: url(/static/pictures/trs.svg);
+}
+
+.method2 {
+    background-image: url(/static/pictures/bitcoin.svg);
+    background-size: 100px;
+}
+
+.method3 {
+    background-image: url(/static/pictures/card.svg);
+}
+
 .form_radio_btn input[type=radio] {
 	display: none;
 }
@@ -518,3 +539,64 @@ label {
 .form_radio_btn label:hover {
 	color: rgb(6, 241, 84);
 }
+
+.GH {
+    margin: 0 auto;
+    width: 590px;
+    height: auto;
+    text-align: center;
+    border-collapse: collapse;
+    border-style: hidden;
+}
+
+.tble {
+    width: 597px;
+    height: 560px;
+    overflow: hidden;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.tble::-webkit-scrollbar {
+    background: rgb(248, 236, 253);
+    width: 3px;
+    border-radius: 0 5px;
+}
+
+.tble::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(226, 204, 253, 0.8); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+
+.GH td, th {
+    padding: 5px;
+    border: 2px solid rgba(156, 255, 156, 0.836);
+}
+
+.GH th {
+    color:rgb(78, 4, 175);
+    background: #ae84e4;
+}
+
+.GH td {
+    color: white;
+}
+
+#upcash {
+    font-family: 'Montserrat';
+    font-size: 20px;
+    background: linear-gradient(135deg, #e55d87 0%, #5fc3e4 100%);
+    box-shadow: 0 0 20px rgba(99, 2, 94, 0.548);
+    border: 2px solid #30012faf;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+hr {
+    background: linear-gradient(to right, rgb(47, 3, 245), rgb(132, 0, 255));
+    height: 5px;
+    border-radius: 10px;
+  }

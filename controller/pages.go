@@ -88,6 +88,13 @@ func SignPage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	tpl.Execute(rw, conditionsMap)
 }
 
+type GameHistory struct {
+	Tupe       string
+	Bet_amount string
+	Stat       string
+	Summ       string
+}
+
 func (s *DataBase) ProfilePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
 	conditionsMap := map[string]any{}
 	c, err := r.Cookie("authenticated-user-session")
@@ -110,6 +117,9 @@ func (s *DataBase) ProfilePage(rw http.ResponseWriter, r *http.Request, p httpro
 	conditionsMap["email"] = user.email
 	conditionsMap["role"] = user.role
 	conditionsMap["balance"] = user.balance
+
+	conditionsMap["history"] = s.getBetHistory(r)
+
 	if status == true {
 		conditionsMap["LoginFlagAccept"] = true
 	} else {
@@ -124,6 +134,33 @@ func (s *DataBase) ProfilePage(rw http.ResponseWriter, r *http.Request, p httpro
 	}
 	var tpl = template.Must(template.ParseFiles(files...))
 	tpl.Execute(rw, conditionsMap)
+}
+
+func (s *DataBase) getBetHistory(r *http.Request) []GameHistory {
+	employee := GameHistory{}
+	employees := []GameHistory{}
+
+	session, _ := loggedUserSession.Get(r, "authenticated-user-session")
+	userID, ok := session.Values["userID"]
+	if ok {
+		rows, err := s.Data.Query(`SELECT type, bet_amount, stat, summ FROM transactions WHERE user_id=? ORDER BY id DESC`, userID)
+		if err != nil {
+			panic(err)
+		}
+		for rows.Next() {
+			var tupe, bet_amount, stat, summ string
+			err = rows.Scan(&tupe, &bet_amount, &stat, &summ)
+			if err != nil {
+				panic(err)
+			}
+			employee.Tupe = tupe
+			employee.Bet_amount = bet_amount
+			employee.Stat = stat
+			employee.Summ = summ
+			employees = append(employees, employee)
+		}
+	}
+	return employees
 }
 
 func (s *DataBase) DicePage(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {

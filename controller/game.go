@@ -137,10 +137,10 @@ func (s *DataBase) transactionDice(n string, rng string, pt string, bt string, b
 	}
 
 	perem := `
-			INSERT INTO transactions (user_id, type, stat, summ) VALUES(?, ?, ?, ?)
+			INSERT INTO transactions (user_id, type, bet_amount, stat, summ) VALUES(?, ?, ?, ?, ?)
 		`
 
-	insert, errdb := s.Data.Query(perem, idd, "DiceBet", status, summ)
+	insert, errdb := s.Data.Query(perem, idd, "DiceBet", bet, status, summ)
 	defer func() {
 		if insert != nil {
 		}
