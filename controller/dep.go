@@ -3,6 +3,7 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 	"net/http"
 	"strconv"
 
@@ -50,7 +51,7 @@ func (s *DataBase) Deposit(rw http.ResponseWriter, r *http.Request, p httprouter
 	bal := conditionsMap["balance"].(string)
 	n, _ := strconv.ParseFloat(bal, 64)
 	dep, _ := strconv.ParseFloat(send_data.Money, 64)
-	conditionsMap["balance"] = fmt.Sprint(n + dep)
+	conditionsMap["balance"] = fmt.Sprint(n + math.Round(dep*100)/100)
 
 	perem2 := `
 			UPDATE users_account SET balance = ? WHERE id = ?;
